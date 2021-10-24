@@ -1,3 +1,4 @@
+/* Demostrates Exit */
 SAY 'How many months of experience do you have? Please enter'
 SAY 'the months as a number.'
 PULL month
