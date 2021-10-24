@@ -1,6 +1,6 @@
 /* Main program */ 
 do 5 
-   say "hello" 
+   say "hello" /* Prints hello 5 times */
 end 
 
 /* Main program */ 
