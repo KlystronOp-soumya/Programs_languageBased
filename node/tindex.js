@@ -29,7 +29,7 @@ module.exports= function(){
    //console.log(jsonData);
     return jsonData;
     }
-    
+/*
     var json = JSON.parse(data).studentData;
 
 json.forEach(function(element, index){
@@ -52,4 +52,4 @@ return json;
 
 
 
-}
+}*/
