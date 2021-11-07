@@ -6,7 +6,7 @@ const startServer = (router,handle) => { //router is the function
       console.log("Received request");
       var pathName = url.parse(request.url).pathname ;
       console.log("Request received for "+pathName);
-      router(pathName,handle);
+      router(pathName,handle,response);
       response.writeHead(200, "Server Up", { "content-type": "text/plain" });
       response.write("Hello From Server");
       response.end();
