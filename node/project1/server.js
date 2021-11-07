@@ -7,9 +7,10 @@ const startServer = (router,handle) => { //router is the function
       var pathName = url.parse(request.url).pathname ;
       console.log("Request received for "+pathName);
       router(pathName,handle,response);
-      response.writeHead(200, "Server Up", { "content-type": "text/plain" });
+     /*  response.writeHead(200, "Server Up", {"content-type": "text/plain" });
       response.write("Hello From Server");
-      response.end();
+      response.end(); */
+      
   }
 
 http.createServer(onRequest).listen(8000) ;
