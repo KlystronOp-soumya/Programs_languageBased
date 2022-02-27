@@ -44,13 +44,13 @@ void disp_pointer_2(int (*q)[3],int row,int col)
 }
 void disp_pointer3(int **q,int r,int c)
 {
-    printf("Fun\n") ;
     for(int i = 0;i<r;i++)
     {
         for(int j=0;j<c;j++)
         {
-            printf("%d ",q[i][j]) ;
+            printf("%d ",*(*q+(i*c)+j)) ;
         }
+        printf("\n");
     }
 }
 int main(int argc, char const *argv[])
@@ -69,10 +69,10 @@ int main(int argc, char const *argv[])
     printf("elem=%d\n",ar[0][0]);
     for (int i = 0; i < row; i++)
     {
-        printf("%u \n",ar[i]) ;//&ar[0]
-        printf("%u \n",(ar+i));
-        printf("%u \n",*(ar+i));
-        printf("%u \n",&ar[i][0]);
+        //printf("%u \n",ar[i]) ;//&ar[0]
+       // printf("%u \n",(ar+i));
+        //printf("%u \n",*(ar+i));
+        //printf("%u \n",&ar[i][0]);
         for (int j = 0; j < col; j++)
         {
             //printf("%d ",ar2[i][j]) ;
