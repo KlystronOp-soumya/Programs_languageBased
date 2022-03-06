@@ -8,10 +8,13 @@
   (def y 2)
   (def greet "Hello World")
   (def status true)
+  (def z (not= x y))
   (println x)
   (println y)
   (println greet)
   (println status)
+  (println z)
   )
+ 
 
 (example)
