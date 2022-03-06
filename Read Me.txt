@@ -1,0 +1,18 @@
+==========This file contains Short notes and mind maps for Clojure=========
+To install there are two ways:
+1. Download the Leiningen using the windows installer
+    https://djpowell.github.io/leiningen-win-installer/
+2. Download the script:
+    https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein.bat
+    for Linux add this into the $PATH then mae the script executable
+
+    for windows run "lein self-install"
+3.open cmd run: lein --ve
+
+4.Instaall Leiningen
+5.Install Clojure CLI
+
+Special Variables in REPL
+REPL includes some useful variables, the one widely used is the special variable *1, *2, and *3. These are used to evaluate the results of the three most recent expressions.
+
+Following example shows how these variables can be used.
