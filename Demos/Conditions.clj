@@ -14,7 +14,7 @@
 ;;(ifDemo)
 
 (defn ifDoDemo []
-  ((def x  2)
+  (def x  2)
    (def y 2)
    (def check (= x y))
 
@@ -31,6 +31,6 @@
       (def y (dec y))
       (println "X: "x " Y:" y)
       ))
-   ))
+  )
 
 (ifDoDemo)
