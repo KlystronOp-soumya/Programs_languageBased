@@ -7,8 +7,7 @@ var body_parser=require('body-parser')
 //to use the static files
 app.use(body_parser())
 app.use(express.static('public'))
-
-
+app.set("view-engine","jade");
 app.get('/',(req,res)=>{
 
 //res.sendFile(__dirname+'/views/index.html');
