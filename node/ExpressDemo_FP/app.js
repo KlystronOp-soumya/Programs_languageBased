@@ -13,7 +13,7 @@ app.get('/',(req,res)=>{
 
 //res.sendFile(__dirname+'/views/index.html');
 //res.sendFile("index.html",{root: path.join(__dirname,'/views')}) ;
-res.render(__dirname+'/views/index',{title:'Index',message:'Hello World'}) ;
+res.render(__dirname+'/views/welcome',{title:'Welcome To Express',message:'Hello World Express'}) ;
 });
 
 app.listen(3000,()=>{
