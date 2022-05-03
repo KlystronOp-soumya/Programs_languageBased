@@ -31,7 +31,11 @@
         "type_traits": "c",
         "tuple": "c",
         "valarray": "c",
-        "variant": "c"
+        "variant": "c",
+        "cstring": "c",
+        "stdbool.h": "c",
+        "cstdio": "c",
+        "iostream": "c"
     },
     "cmake.configureOnOpen": true
 }

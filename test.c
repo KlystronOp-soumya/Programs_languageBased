@@ -19,11 +19,14 @@ int main(int argc, char const *argv[])
         printf("A");
         x++;
     } */
-    int *i ;
+   /*  int *i ;
     char *ch ;
     float *f;
     printf("%d",sizeof(i)) ;
     printf("%d",sizeof(ch)) ;
-    printf("%d",sizeof(f)) ;
+    printf("%d",sizeof(f)) ; */
+
+    signed int i = -2;
+    printf("%lf",1.0-2.0) ;
     return 0;
 }

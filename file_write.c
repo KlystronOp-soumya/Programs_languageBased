@@ -9,7 +9,7 @@ int main(int argc, char const *argv[])
     int e = (fp==0)?1:0;
 
     printf("The file exists: %d",e);
-     if()
+     if(remove(fp))
       printf("deleted");
     else
      printf("not delted");
