@@ -7,4 +7,20 @@ block content
  div#wrapper
   p this is paragraph,highlighted
   - var name = "Soumyadeep" ;
+  - obj = () => {return "From Function"}
   p #{name}
+  p= name
+  p #{myData}
+  p !{name}
+  ul 
+    li #{name}
+    li #{name}
+    li #{obj()}
+  a(href="/about") About Me
+
+  p 
+   img(src="./public/resources/pic.jpg",height="auto",alt="jpg image")
+  p 
+    include show.jade
+  p 
+    include show_agents.jade

@@ -1,0 +1,23 @@
+mixin fetch(users)
+ p showing using mixin
+ ul 
+    - each user in users 
+        li #{user}
+
+- obj = {name:"Soumyadeep", Employee_Id : '1968951', post : "developer"}
+- names = ["apple","microsoft","facebook","tcs","cts"]
+- var fc = 2
+ul 
+    li #{obj.name}
+    li #{obj.Employee_Id}
+    li #{obj.post}
+
+ul 
+    for companies in names 
+        li #{companies}
+
+if (fc == 2)
+    p you have #{fc} followers
+
+- users=['a','b','c']
+mixin fetch(users)
