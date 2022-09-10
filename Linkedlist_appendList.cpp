@@ -17,23 +17,32 @@ typedef struct node
     struct node* next_node_add;
 }Node;
 
- Node *traverse_list(Node*head)
+/*
+Traversing the list using recursion
+*/
+ Node *traverse_list(Node *head)
 {
-    Node *temp=head;
+    Node *temp=head;//assign
     if(temp->next_node_add==NULL)
      return temp; //address of the last node is returned
     
     return traverse_list(temp->next_node_add);
+   /*  while(temp->next_node_add != NULL)
+    {
+        temp=temp->next_node_add;
+    }
+    return temp;
+ */
 } 
 
-void append(Node**head_node,int data)
+void  append(Node**head_node,int data)
 {
     Node* temp,*r;
    //check for the empty list
-   if(*head_node==NULL)
+   if(head_node==NULL)
    {
        //create a node and store the address
-       temp= new Node;
+       temp= (Node*) malloc(sizeof(Node)*1) ;//new node
        temp->data=data;
        temp->next_node_add=NULL;
        *head_node=temp;//the address is stored
@@ -46,7 +55,7 @@ void append(Node**head_node,int data)
         temp=temp->next_node_add */;
 
        //create a node
-       r=new Node;
+       r= new Node ;
        r->data=data;
        r->next_node_add=NULL;
        temp->next_node_add=r;

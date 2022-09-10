@@ -16,19 +16,22 @@ void append(circ_node **head, int val)
     {
         temp = new circ_node();
         temp->data = val;
+        //temp->next_node_address=NULL ;
         *head = temp;
         temp->next_node_address = *head;
     }
     else
     {
         temp = *head;
+        //traverasal
         while (temp->next_node_address != *head)
             temp = temp->next_node_address;
 
         r = new circ_node();
         r->data = val;
         temp->next_node_address = r;
-        r->next_node_address = *head;
+        r->next_node_address = *head;//pointing to the head node
+
     }
 }
 
@@ -52,8 +55,48 @@ void show(circ_node *head)
     cout << temp->data;
 }
 
-void deleteNode()
+void deleteNodeLast(circ_node **head)
 {
+    circ_node *temp = *head,*current = *head;
+
+    if(*head== NULL)
+    {
+        printf("List empty!!");
+        return;
+    }
+    while(current->next_node_address != *head)
+    {
+        temp =current ;
+        current = current->next_node_address ; //moving to next node
+    }
+    /*
+    current->next point/holds the address of head node
+    temp is moved to the node before the last node
+    changing the next node address for temp to head(current->next)
+    */
+    temp->next_node_address = current->next_node_address ;
+    free(current);
+    return;
+}
+
+void deleteFirstNode(circ_node **head)
+{
+    circ_node *temp = *head,*current= *head;
+    if(*head== NULL)
+    {
+        printf("List empty!!");
+        return;
+    }
+
+    //traverse
+    while(current->next_node_address!= *head)
+      current = current->next_node_address;
+    
+    current->next_node_address = (*head)->next_node_address ;//shifting the back link to the node next to head
+    *head =(*head)->next_node_address ;//shifting the head to the next node this is new head
+    free(temp);//temp points to the old head
+    return ;
+    
 }
 
 void sort()

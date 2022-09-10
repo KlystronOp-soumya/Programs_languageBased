@@ -117,10 +117,10 @@ int main(int argc, char const *argv[])
         push(&head,i);
     }
     show_list(head);
-    dup_head=copy_list(head);
-    show_list(dup_head);
+    //dup_head=copy_list(head);
+   // show_list(dup_head);
     free_memory(head);
-    free_memory(dup_head);
+   // free_memory(dup_head);
     
     return 0;
 }

@@ -43,9 +43,10 @@ void free_memory(Node *head)
 }
 void push(Node **head,int data)
 {
+    
     Node *temp;
      //cout<<"null node";
-       temp=new Node;
+       temp=new Node;// malloc()
        temp->data=data;
        temp->address_next_node=*head;//NULL for the first time
        *head=temp;
@@ -87,7 +88,9 @@ int main(int argc, char const *argv[])
     Node* head=NULL;
     for(int i=1;i<=6;++i)
     {
-        push(&head,i);
+        int t;
+        scanf("%d",&t);
+        push(&head,t);
     }
     show_list(head);
     //reverse_list(&head);

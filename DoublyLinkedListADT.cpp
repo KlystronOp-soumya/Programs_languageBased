@@ -13,7 +13,7 @@ typedef struct doubly_ll_node
     int data;
     struct doubbly_ll_node *prev_node_address;
     struct doubbly_ll_node *next_node_address;
-} dbly_ll_node;
+}Node;
 
 int main(int argc, char const *argv[])
 {

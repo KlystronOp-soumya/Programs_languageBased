@@ -47,7 +47,7 @@ void Inorder(node *root)
    }
    return;
 }
- void Preorder(node *root)
+/*  void Preorder(node *root)
 {
     if(root==NULL) //base case
      return;
@@ -59,8 +59,8 @@ void Inorder(node *root)
        Inorder(root->right);
    }
    return;
-} 
- void Postorder(node *root)
+}  */
+/*  void Postorder(node *root)
 {
     if(root==NULL) //base case
      return;
@@ -73,7 +73,7 @@ void Inorder(node *root)
        printf("%c ",root->data);
    }
    return;
-} 
+} */ 
 
 int main(int argc, char const *argv[])
 {
@@ -84,10 +84,10 @@ int main(int argc, char const *argv[])
     printf("Inorder traversal is: ");
     Inorder(root);
     printf("\n");//address of  the root node
-    printf("Preorder traversal is: ");
-    Preorder(root);
-    printf("\n");//address of  the root node
-    printf("Postorder traversal is: ");
-    Postorder(root);//address of  the root node
+    //printf("Preorder traversal is: ");
+    //Preorder(root);
+    //printf("\n");//address of  the root node
+   //printf("Postorder traversal is: ");
+    //Postorder(root);//address of  the root node
     return 0;
 }

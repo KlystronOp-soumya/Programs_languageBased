@@ -65,7 +65,7 @@ void delete_node(Node**head,int value)
                  old->next=temp->next;
                  
              }
-             delete(temp);
+             delete(temp);//free (temp)
              return;
        }
        else
