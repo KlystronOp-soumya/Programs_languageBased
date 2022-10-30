@@ -27,6 +27,7 @@ void push(Stack *stk, int n)
     {
         int t;
         cin >> t;
+        //stk->top++;
         stk->st[++(stk->top)] = t;
     }
 }
@@ -39,11 +40,11 @@ void pop(Stack *stk)
     }
     int item = stk->st[stk->top];
     stk->top--;
-    cout << "popped element: " << item;
+    cout << "popped element: " << item<<endl;
 }
 void peek(Stack *stk)
 {
-    cout << "peek: " << stk->st[stk->top];
+    cout << "peek: " << stk->st[stk->top]<<endl;
 }
 void show(Stack *stk)
 {

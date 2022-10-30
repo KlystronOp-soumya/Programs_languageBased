@@ -7,7 +7,7 @@ typedef struct node
     struct node *next_node_address;
 } stack_node;
 
-stack_node *top; //global defination of the top
+stack_node *top=NULL; //global defination of the top
 
 bool isEmpty()
 {
