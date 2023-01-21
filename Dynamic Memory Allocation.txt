@@ -1,0 +1,7 @@
+In case of static memory allocation there are some drawbacks like-wastage of memory, less flexibility, permanent allocation of variables etc. To overcome these situations the concept of dynamic memory allocation has been introduced.
+
+In dynamic memory allocation the memories can be allocated dynamically at run time. To allocate memory dynamically the dynamic memory allocation technique has been introduced. It has many advantages.
+Allocation of memory: In static memory allocation the variables are allocated permanently hence a wastage of memory is occurred, But in case of dynamic memory allocation the variables are get allocated until the program unit gets inactive. Memory allocation occurs during runtime.
+Efficiency: The efficiency of dynamic memory allocation is more than static memory allocation and it is very flexible also.
+Memory reusability: The previously used memory can also be reused in dynamic memory allocation, a function named “free” is used to release the memory for future use when the user need it.
+Reallocation of memory: In static memory allocation after a memory is allocated we can’t change its size. But in dynamic memory allocation using the “realloc()” function we can change the memory block size as per our requirement.
