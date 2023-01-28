@@ -15,6 +15,7 @@
         "*.HLASM*": "hlasm",
         "*.HLA*": "hlasm",
         "*.html": "html",
+        "*.py": "python",
         "stdio.h": "c",
         "stdlib.h": "c",
         "atomic": "c",
@@ -35,7 +36,8 @@
         "cstring": "c",
         "stdbool.h": "c",
         "cstdio": "c",
-        "iostream": "c"
+        "iostream": "c",
+        "lcm2.C": "cpp"
     },
     "cmake.configureOnOpen": true
 }
