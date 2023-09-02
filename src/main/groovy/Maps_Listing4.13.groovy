@@ -1,0 +1,1 @@
+/* This Script demonstrates the Map in GDK */
