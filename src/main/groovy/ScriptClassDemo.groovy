@@ -7,3 +7,10 @@ class Main extends Script {
         InvokerHelper.runScript(Main, args)
     }
 }
+
+"""
+GroovyClassLoader loader = new GroovyClassLoader()
+GroovyCodeSource codeSource = new GroovyCodeSource(script, "MyClass", GroovyShell.DEFAULT_CODE_BASE)
+println loader.parseClass(codeSource)
+
+"""
