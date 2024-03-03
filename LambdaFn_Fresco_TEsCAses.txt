@@ -1,0 +1,371 @@
+package com.fresco;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class FnCheck {
+    public boolean isFnProgrammingPresent() throws FileNotFoundException, IOException
+    {
+        File file = new File("/projects/challenge/FunctionalProgramming/src/main/java/com/fresco/LambdaFn.java");
+        FileReader fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr);
+        String line, string="";
+        while((line=br.readLine())!=null)
+        {
+            string+=line;
+        }
+        String fn=string.substring(string.indexOf("functionalProgramming(List<String> listOfIntegers)"),string.indexOf("return outputList;"));
+        br.close();
+        if(fn.contains("stream()")&&fn.contains("map(")&&fn.contains("filter("))
+        {
+            return true;
+        }
+        return false;
+    }
+}
+--------------------------------------
+package com.fresco;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+public class LambdaFnTest {
+    LambdaFn fn;
+    FnCheck fc;
+    public LambdaFnTest() {
+    }
+    
+    @Before
+    public void setUp() {
+        fn = new LambdaFn();
+        fc = new FnCheck();
+    }
+    
+    long a,b;
+    
+    @Test
+    public void testFunctionalProgramming1() throws IOException {
+        if(fc.isFnProgrammingPresent())
+        {
+            a=46;
+            b=1000;
+            List<String> listOfIntegers = new ArrayList<>();
+            for(long i=a;i<=b;i++)
+            {
+                listOfIntegers.add(i+"");
+            }
+            int actual = fn.functionalProgramming(listOfIntegers).hashCode();
+            assertEquals(82680324, actual);
+        }
+        else
+        {
+            assertEquals(8394283, 76387468);
+        }
+    }
+    
+    @Test
+    public void testFunctionalProgramming2() throws IOException {
+        if(fc.isFnProgrammingPresent())
+        {
+            a=2000;
+            b=150000;
+            List<String> listOfIntegers = new ArrayList<>();
+            for(long i=a;i<=b;i++)
+            {
+                listOfIntegers.add(i+"");
+            }
+            int actual = fn.functionalProgramming(listOfIntegers).hashCode();
+            assertEquals(1855450601, actual);
+        }
+        else
+        {
+            assertEquals(8394283, 76387468);
+        }
+    }
+    
+    @Test
+    public void testFunctionalProgramming3() throws IOException {
+        if(fc.isFnProgrammingPresent())
+        {
+            a=7500;
+            b=655000;
+            List<String> listOfIntegers = new ArrayList<>();
+            for(long i=a;i<=b;i++)
+            {
+                listOfIntegers.add(i+"");
+            }
+            int actual = fn.functionalProgramming(listOfIntegers).hashCode();
+            assertEquals(-1008399821, actual);
+        }
+        else
+        {
+            assertEquals(8394283, 76387468);
+        }
+    }
+    
+    @Test
+    public void testFunctionalProgramming4() throws IOException {
+        if(fc.isFnProgrammingPresent())
+        {
+            a=100000;
+            b=850000;
+            List<String> listOfIntegers = new ArrayList<>();
+            for(long i=a;i<=b;i++)
+            {
+                listOfIntegers.add(i+"");
+            }
+            int actual = fn.functionalProgramming(listOfIntegers).hashCode();
+            assertEquals(214036804, actual);
+        }
+        else
+        {
+            assertEquals(8394283, 76387468);
+        }
+    }
+    
+    @Test
+    public void testFunctionalProgramming5() throws IOException {
+        if(fc.isFnProgrammingPresent())
+        {
+            a=1;
+            b=10000;
+            List<String> listOfIntegers = new ArrayList<>();
+            for(long i=a;i<=b;i++)
+            {
+                listOfIntegers.add(i+"");
+            }
+            int actual = fn.functionalProgramming(listOfIntegers).hashCode();
+            assertEquals(1850074275, actual);
+        }
+        else
+        {
+            assertEquals(8394283, 76387468);
+        }
+    }
+    
+    @Test
+    public void testFunctionalProgramming6() throws IOException {
+        if(fc.isFnProgrammingPresent())
+        {
+            a=99;
+            b=99999;
+            List<String> listOfIntegers = new ArrayList<>();
+            for(long i=a;i<=b;i++)
+            {
+                listOfIntegers.add(i+"");
+            }
+            int actual = fn.functionalProgramming(listOfIntegers).hashCode();
+            assertEquals(787557259, actual);
+        }
+        else
+        {
+            assertEquals(8394283, 76387468);
+        }
+    }
+    
+    @Test
+    public void testFunctionalProgramming7() throws IOException {
+        if(fc.isFnProgrammingPresent())
+        {
+            a=100000;
+            b=500000;
+            List<String> listOfIntegers = new ArrayList<>();
+            for(long i=a;i<=b;i++)
+            {
+                listOfIntegers.add(i+"");
+            }
+            int actual = fn.functionalProgramming(listOfIntegers).hashCode();
+            assertEquals(-1256774641, actual);
+        }
+        else
+        {
+            assertEquals(8394283, 76387468);
+        }
+    }
+    
+    @Test
+    public void testFunctionalProgramming8() throws IOException {
+        if(fc.isFnProgrammingPresent())
+        {
+            a=813;
+            b=75000;
+            List<String> listOfIntegers = new ArrayList<>();
+            for(long i=a;i<=b;i++)
+            {
+                listOfIntegers.add(i+"");
+            }
+            int actual = fn.functionalProgramming(listOfIntegers).hashCode();
+            assertEquals(-1374584474, actual);
+        }
+        else
+        {
+            assertEquals(8394283, 76387468);
+        }
+    }
+    
+    @Test
+    public void testFunctionalProgramming9() throws IOException {
+        if(fc.isFnProgrammingPresent())
+        {
+            a=210000;
+            b=310000;
+            List<String> listOfIntegers = new ArrayList<>();
+            for(long i=a;i<=b;i++)
+            {
+                listOfIntegers.add(i+"");
+            }
+            int actual = fn.functionalProgramming(listOfIntegers).hashCode();
+            assertEquals(1, actual);
+        }
+        else
+        {
+            assertEquals(8394283, 76387468);
+        }
+    }
+    
+    @Test
+    public void testFunctionalProgramming10() throws IOException {
+        if(fc.isFnProgrammingPresent())
+        {
+            a=1;
+            b=10000000;
+            List<String> listOfIntegers = new ArrayList<>();
+            for(long i=a;i<=b;i++)
+            {
+                listOfIntegers.add(i+"");
+            }
+            int actual = fn.functionalProgramming(listOfIntegers).hashCode();
+            assertEquals(345717954, actual);
+        }
+        else
+        {
+            assertEquals(8394283, 76387468);
+        }
+    }
+    
+    @Test
+    public void testFunctionalProgramming11() throws IOException {
+        if(fc.isFnProgrammingPresent())
+        {
+            a=1;
+            b=100000;
+            List<String> listOfIntegers = new ArrayList<>();
+            for(long i=a;i<=b;i++)
+            {
+                listOfIntegers.add(i+"");
+            }
+            int actual = fn.functionalProgramming(listOfIntegers).hashCode();
+            assertEquals(-1733885475, actual);
+        }
+        else
+        {
+            assertEquals(8394283, 76387468);
+        }
+    }
+    
+    @Test
+    public void testFunctionalProgramming12() throws IOException {
+        if(fc.isFnProgrammingPresent())
+        {
+            a=500000;
+            b=510000;
+            List<String> listOfIntegers = new ArrayList<>();
+            for(long i=a;i<=b;i++)
+            {
+                listOfIntegers.add(i+"");
+            }
+            int actual = fn.functionalProgramming(listOfIntegers).hashCode();
+            assertEquals(500531, actual);
+        }
+        else
+        {
+            assertEquals(8394283, 76387468);
+        }
+    }
+    
+    @Test
+    public void testFunctionalProgramming13() throws IOException {
+        if(fc.isFnProgrammingPresent())
+        {
+            a=1;
+            b=1000000;
+            List<String> listOfIntegers = new ArrayList<>();
+            for(long i=a;i<=b;i++)
+            {
+                listOfIntegers.add(i+"");
+            }
+            int actual = fn.functionalProgramming(listOfIntegers).hashCode();
+            assertEquals(-383556027, actual);
+        }
+        else
+        {
+            assertEquals(8394283, 76387468);
+        }
+    }
+    
+}
+--------------------------------
+package com.fresco;
+
+import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class LambdaFn {
+    
+    public List<Long> functionalProgramming(List<String> listOfIntegers)
+    {
+        //Write your code here
+        Predicate<Long> kaprekarNumberCheckPredicate = (n) -> {
+			if (n == 1)
+				return true;
+
+			int c = 0;
+			long sq = n * n;
+
+			while (sq != 0) {
+				c++;
+				sq /= 10;
+
+			}
+			// recompute
+			sq = n * n;
+
+			for (int r_dig = 1; r_dig <= c; ++r_dig) {
+				int eq_part = (int) Math.pow(10, r_dig);
+				if (eq_part == n)
+					continue; // for 10,100,1000 etc
+
+				long sum = sq / eq_part + sq % eq_part;
+
+				if ((sum ^ n) == 0)
+					return true;
+			}
+			return false;
+		};
+
+		// define a Function for the map opearation
+		
+
+		Stream<Long> numbers = listOfIntegers.stream().map(eachStr -> Long.parseLong(eachStr));
+
+		List<Long> outputList = Collections.emptyList();
+
+		outputList = numbers.filter(kaprekarNumberCheckPredicate).collect(Collectors.toList());
+
+		//outputList.stream().forEach((e) -> System.out.println(e));
+		return outputList;
+    }
+    
+}

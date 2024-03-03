@@ -1,0 +1,48 @@
+public class CreatingNewFile
+{
+    public static void main(String args[])
+    {  
+          try {  
+                   File fcreate = new File("Lorem.txt");   
+                    if (fcreate.createNewFile()) {  
+                        System.out.println("File " + fcreate.getName() + " is created successfully.");
+                    }
+                     else {  
+                              System.out.println("File is already exist in the directory."); 
+                            }
+                            } catch (IOException exception) {  
+                          System.out.println("An unexpected error is occurred.");  
+                          exception.printStackTrace();  
+              }   
+}
+	
+public static getAllFileInfo()
+{
+ 
+	File finfo = new File("G:\\Internship\\File Handling\\NewFile.txt");  
+        if (finfo.exists()) {  
+             System.out.println("The name of the file is: " + finfo.getName());  
+             System.out.println("The absolute path of the file is: " + finfo.getAbsolutePath());
+             System.out.println("Is file writeable: " + finfo.canWrite());
+             System.out.println("Is file readable: " + finfo.canRead());
+             System.out.println("The size of the file is: " + finfo.length());
+            } else {  
+            System.out.println("The file does not exist.");  
+        }  
+    }  
+}
+ 
+public static deleteFile(String fileName)
+{
+	File fdel = new File("G:\\Internship\\File Handling\\NewFile.txt");   
+        if (fdel.delete())
+        { 
+            System.out.println(fdel.getName()+ " is deleted successfully.");  
+        }
+        else 
+        {  
+            System.out.println("Could Not Delete File");  
+        }
+    
+}	
+}

@@ -1,0 +1,28 @@
+This is like a pipe.Where there is a inlet and outlet
+Empty stream is possible
+Or we can have infinite number of things in stream like IoT or Thermostat,these provide infinite data
+This might have some lag of 10sec.
+operations:
+  Map returns stream of different type
+  Filter returns the same type
+  "Finish It" (terminal operations)=>when this is applied the stream does not exist anymore
+   Reduce:like python
+   FindFirst:
+   count:
+   AnyMatch
+   Collect:Stream<t> -> Container<t> could be list,ArrayList,Set etc.
+ 	Collect:Stream<t>->t,Integer,Boolean,Stream<t>
+All terminal operations are a specal type of collector.
+Design pattern: Command Pattern
+
+ Short circuit is process to stop calculating might stop processing on the infinite numbers 
+ 
+ Interface command has two methods
+ Command
+ supports(String):bool
+ apply(String):String
+ takes a command checks for support and if supports starts to implement using the "apply"
+ 
+join names as strings:
+https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html
+https://stackoverflow.com/questions/37987051/how-to-concatenate-a-string-with-the-new-1-8-stream-api
