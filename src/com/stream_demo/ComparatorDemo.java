@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -277,6 +278,15 @@ public class ComparatorDemo {
 			// Stream<Integer> charStream = Stream.of(1, 2, 3, 4, 5);
 			OUT.println(str.chars().distinct().mapToObj((ascii) -> String.valueOf((char) (ascii - 32)))
 					.collect(Collectors.toList()).stream().collect(Collectors.joining(",")));
+			OUT.println("Get min and max");
+
+			// get the min and maximum value from a Stream
+			List<Integer> numbers = Arrays.asList(42, 4, 2, 24);
+			Optional<Integer> min = numbers.stream().collect(Collectors.minBy(Integer::compareTo));
+			Optional<Integer> max = numbers.stream().collect(Collectors.maxBy(Integer::compareTo));
+			// get the min and maximum value from a stream method 2
+			OUT.println("Minimum value: " + min.get() + "Maximum value: " + max.get());
+			OUT.println("Method 2 : max : " + numbers.stream().max(Integer::compare).get());
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		} finally {
