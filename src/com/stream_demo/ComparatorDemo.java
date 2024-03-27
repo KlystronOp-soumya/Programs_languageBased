@@ -229,6 +229,14 @@ public class ComparatorDemo {
 					.forEach((e) -> OUT.println("Name: " + e.getKey() + " UserID: " + e.getValue()));
 
 			// similarly to sort the map in ascending order
+			/*
+			 * Here : Collectors.toMap((e) -> e.name, (e) -> e.userId, (k1, v1) -> k1,
+			 * HashMap::new)
+			 * 
+			 * (e) -> e.name - provides the key (e) -> e.userId - provides the value (k1,
+			 * v1) -> k1 - provides the merging HashMap :: new provides the new class
+			 * 
+			 */
 			Map<String, String> sortedNameUserIdMap = obj.employees.stream()
 					.sorted((e1, e2) -> Integer.compare(e2.age, e1.age))
 					.collect(Collectors.toMap((e) -> e.name, (e) -> e.userId, (k1, v1) -> k1, HashMap::new));
