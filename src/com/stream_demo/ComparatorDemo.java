@@ -252,14 +252,18 @@ public class ComparatorDemo {
 			OUT.println("Finding distinct elements");
 			List<Integer> uniqueNums = nums.stream().distinct().collect(Collectors.toList());
 			uniqueNums.stream().forEach(OUT::println);
+
+			// get the average valuesS
 			OptionalDouble avg = nums.stream().mapToInt((e) -> e).average();
 			OUT.printf("Average is: %.3f\n", avg.getAsDouble());
 			OUT.println("Total number of elems: " + nums.stream().count());
 			// group by
 			OUT.println("Showing groups");
 			OUT.println(nums.stream().collect(Collectors.groupingBy((e) -> e)));
+			// showing frequencies of elements
 			OUT.println("Showing frequesncies");
 			OUT.println(nums.stream().collect(Collectors.groupingBy((e) -> e, Collectors.counting())));
+			// get the maximum frequency element
 			OUT.println("Getting the max frequency element in each group");
 			OUT.println(nums.stream().collect(
 					Collectors.groupingBy((e) -> e, Collectors.reducing(BinaryOperator.maxBy(Integer::compare))) // end
@@ -269,6 +273,7 @@ public class ComparatorDemo {
 			) // end of collect
 			);
 
+			// get the most frequent characters using stream
 			OUT.println("Most frequent char");
 			String str = "aaaabbcdddeefffff";
 			OUT.println(
