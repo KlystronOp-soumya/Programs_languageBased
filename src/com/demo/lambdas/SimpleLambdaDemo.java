@@ -1,5 +1,6 @@
 package com.demo.lambdas;
 
+@FunctionalInterface
 interface MathUtility {
 	double calculateArea(double n);
 }

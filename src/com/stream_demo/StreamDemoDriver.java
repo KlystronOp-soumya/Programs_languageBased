@@ -1,6 +1,7 @@
 package com.stream_demo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -131,7 +132,7 @@ public class StreamDemoDriver {
 	}
 
 	private static void findIndexOfElem() {
-		List<Integer> intList = List.of(1, 2, 3, 4, 5);
+		List<Integer> intList = Arrays.asList(1, 2, 3, 4, 5);
 
 		int index = IntStream.range(0, intList.size()).filter((i) -> intList.get(i) == 4).findFirst().orElse(-1);
 		System.out.println("Index was found at: " + index);
