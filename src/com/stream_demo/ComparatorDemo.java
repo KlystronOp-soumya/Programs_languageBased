@@ -297,6 +297,24 @@ public class ComparatorDemo {
 			// get the min and maximum value from a stream method 2
 			OUT.println("Minimum value: " + min.get() + "Maximum value: " + max.get());
 			OUT.println("Method 2 : max : " + numbers.stream().max(Integer::compare).get());
+
+			// reduce to get the max length String
+			// creating a list of Strings
+			List<String> words = Arrays.asList("Hi", "Hello", "Howdyya", "HelloWorld", "ThisIsJavaLangugae");
+
+			// The lambda expression passed to
+			// reduce() method takes two Strings
+			// and returns the longer String.
+			// The result of the reduce() method is
+			// an Optional because the list on which
+			// reduce() is called may be empty.
+			Optional<String> longestString = words.stream()
+					.reduce((word1, word2) -> word1.length() > word2.length() ? word1 : word2);
+
+			// Displaying the longest String
+			longestString.ifPresent(OUT::println);
+			// Else we can sort the list
+			OUT.println("Longest word: " + words.stream().sorted(Comparator.reverseOrder()).findFirst());
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		} finally {
