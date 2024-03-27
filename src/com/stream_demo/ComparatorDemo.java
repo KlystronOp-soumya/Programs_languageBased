@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -272,6 +273,10 @@ public class ComparatorDemo {
 																													// by
 			) // end of collect
 			);
+
+			// summerizing the information
+			IntSummaryStatistics stats = nums.stream().collect(Collectors.summarizingInt((x) -> x));
+			OUT.println("Summerizing Average: " + stats.getAverage() + " Sum of elements: " + stats.getSum());
 
 			// get the most frequent characters using stream
 			OUT.println("Most frequent char");
