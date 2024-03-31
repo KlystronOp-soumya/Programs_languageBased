@@ -100,7 +100,7 @@ public class StreamPrac {
 
 	public static void main(String[] args) throws IOException {
 		out.flush();
-		List<Movie> moviesList = List.of(new Movie("ghi", 4.8f), new Movie("abc", 3.8f), new Movie("jkl", 3.5f),
+		List<Movie> moviesList = Arrays.asList(new Movie("ghi", 4.8f), new Movie("abc", 3.8f), new Movie("jkl", 3.5f),
 				new Movie("def", 3.9f), new Movie("pqr", 4.8f), new Movie("bef", 4.2f), new Movie("deg", 3.5f));
 		/*
 		 * Optional<Movie> optMovie = Optional.ofNullable(
@@ -131,7 +131,7 @@ public class StreamPrac {
 		System.out.println("Grouping the movies based on rating::\n"
 				+ moviesList.stream().collect(Collectors.groupingBy((eachMovie) -> eachMovie.rating)));
 
-		List<Integer> numList = List.of(1, 2, 2, 2, 3, 3, 4, 5, 5, 5, 5, 5, 5, 6, 7, 7, 8, 9, 8, 8);
+		List<Integer> numList = Arrays.asList(1, 2, 2, 2, 3, 3, 4, 5, 5, 5, 5, 5, 5, 6, 7, 7, 8, 9, 8, 8);
 		// get the distinct
 		numList.stream().distinct().forEach(e -> write(e + "\n\n")); // prints the distinct elems
 
@@ -179,6 +179,14 @@ public class StreamPrac {
 
 		String s = listStrings.stream().map((ch) -> ch.toUpperCase()).collect(Collectors.joining("_"));
 		write("Here S :" + s);
+
+		String st = "Hello";
+		List<String> strings = new ArrayList<>();
+
+		for (int i = 0; i < st.length(); i++) {
+			System.out.println("This:" + st.charAt(i));
+			strings.add(String.valueOf(st.charAt(i)));
+		}
 
 		try {
 			out.close();
