@@ -1,17 +1,41 @@
 package com.demo;
 
 enum ResultStatus {
-	PASS(1), FAIL(0), PENDING(-1);
+	// abstract methods can be added to enums
+	PASS(1) {
+		@Override
+		public boolean isStatus() {
+
+			return super.isStatus();
+		}
+	},
+	FAIL(0) {
+		@Override
+		public boolean isStatus() {
+
+			return super.isStatus();
+		}
+	},
+	PENDING(-1) {
+		@Override
+		public boolean isStatus() {
+			// TODO Auto-generated method stub
+			return super.isStatus();
+		}
+	};
 
 	private int conditionCode;
 
 	ResultStatus(int i) {
-		// TODO Auto-generated constructor stub
 		conditionCode = i;
 	}
 
 	int getConditionCode() {
 		return conditionCode;
+	}
+
+	public boolean isStatus() {
+		return false;
 	}
 }
 
