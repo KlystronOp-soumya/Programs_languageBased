@@ -1,0 +1,6 @@
+bin/
+target/
+*.jar
+lib/
+.idea/
+src/main/groovy/lib/

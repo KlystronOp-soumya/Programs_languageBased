@@ -1,0 +1,3 @@
+/*
+Script to demostrate the rest service in Groovy language
+*/
