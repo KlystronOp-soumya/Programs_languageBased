@@ -39,5 +39,6 @@
         "iostream": "c",
         "lcm2.C": "cpp"
     },
-    "cmake.configureOnOpen": true
+    "cmake.configureOnOpen": true,
+    "zowe.settings.version": 2
 }

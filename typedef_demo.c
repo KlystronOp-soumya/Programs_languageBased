@@ -5,14 +5,16 @@
 #include<string.h>
 #include<math.h>
 #define MAX_ELEM 100
- 
+
+//defining the int pointers
+typedef int *INT_PTR ;
  
 int main(int argc,char*argv[])
 {
-    int n,k ;
-  printf("Enter a number: ") ;
-  int n1 = scanf("%d%d" , &n,&k) ;
-  printf("You have entered %d" , n ) ;  
-  printf("%d" , n1) ;
+ INT_PTR p1 , p2 ;
+ int a = 3 , b = 4 ;
+ p1=&a ;
+ p2=&b ;
+ printf("%d %d" , *p1 , *p2) ;
 return 0;
 }
