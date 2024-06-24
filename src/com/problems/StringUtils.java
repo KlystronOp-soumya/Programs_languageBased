@@ -2,6 +2,7 @@ package com.problems;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.List;
 
 public class StringUtils {
 
@@ -14,7 +15,11 @@ public class StringUtils {
 			System.out.println("" + isPalindrome(inputStr));
 			System.out.println("" + reverse(inputStr));
 			System.out.println("" + reverseInPlace(inputStr.toCharArray()));
-
+			StringBuffer stringBuffer = new StringBuffer(inputStr);
+			System.out.println("reversed: " + stringBuffer.reverse());
+			String rString = inputStr.replaceAll("[aeiouAEIOU]", "_");
+			System.out.println("Replaced: " + rString);
+			binarySearch();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -58,6 +63,36 @@ public class StringUtils {
 		}
 
 		return true;
+	}
+
+	private static void binarySearch() {
+
+		List<Integer> numList = List.of(1, 2, 3, 4, 5, 6);
+		int num = 6;
+		int low = 0;
+		int high = numList.size() - 1;
+		while (low <= high) {
+			int mid = low + (high - low) / 2;
+			System.out.println("StringUtils.binarySearch() :: current mid: " + mid);
+
+			// check if the element is equal to the element at mid
+			if ((numList.get(mid) ^ num) == 0) {
+				System.out.println("Found @ " + mid);
+				break; // get out of the loop
+			} else {
+				// the element is not equal to the mid element so it will be either in left or
+				// right half of the mid element
+				// check if it is right half
+				if (num > numList.get(mid)) {
+					// shift the lower bound to right half
+					low = mid + 1;
+					System.out.println("Shifted low to : " + mid);
+				} else {
+					high = mid - 1;
+				}
+			}
+		}
+
 	}
 
 }

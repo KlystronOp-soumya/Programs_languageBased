@@ -10,11 +10,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -102,7 +105,17 @@ public class StreamApiDemo {
 		List<Agent> agents = getData();
 		sorting(agents);
 		streamAndOptional(agents);
+		bubbleSort();
+	}
 
+	// implements the binary search algorithm
+	private static void bubbleSort() {
+		Random random = new Random();
+		Supplier<Integer> randomNumSupplier = () -> new Random().nextInt(10, 20);
+		List<Integer> numList = IntStream.rangeClosed(0, 9).map((i) -> i * randomNumSupplier.get())
+				.collect(ArrayList::new, ArrayList::add, ArrayList::addAll); // generates random list
+
+		numList.forEach(System.out::println);
 	}
 
 	private static void streamAndOptional(List<Agent> agents) {
