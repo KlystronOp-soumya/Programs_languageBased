@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Random;
+import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -106,11 +107,11 @@ public class StreamApiDemo {
 		sorting(agents);
 		streamAndOptional(agents);
 		bubbleSort();
+
 	}
 
 	// implements the binary search algorithm
 	private static void bubbleSort() {
-		Random random = new Random();
 		Supplier<Integer> randomNumSupplier = () -> new Random().nextInt(10, 20);
 		List<Integer> numList = IntStream.rangeClosed(0, 9).map((i) -> i * randomNumSupplier.get())
 				.collect(ArrayList::new, ArrayList::add, ArrayList::addAll); // generates random list
@@ -163,6 +164,8 @@ public class StreamApiDemo {
 		};
 		// convert the names to upper case only
 		Function<Agent, String> toUpperCaseOnlyName = (a) -> a.getAgtName().toUpperCase();
+		// we need to convert it into the list as map is an intermediate operation it
+		// only converts the elements and doesnt return any stream
 		agents.stream().map(toUpperCaseName).toList().forEach(System.out::println);
 		agents.stream().map(toUpperCaseOnlyName).toList().forEach(System.out::println);
 
@@ -174,6 +177,23 @@ public class StreamApiDemo {
 				.collect(Collectors.groupingBy((eachAgent) -> eachAgent.getAgtDepartment()));
 
 		agMap.entrySet().stream().forEach((o) -> System.out.println(o.getKey() + " : " + o.getValue()));
+
+		Comparator<Agent> byExperince = Comparator.comparing(Agent::getExperience);
+		// get the most experienced people from each group -- first argument is the
+		// classifier the second one is binaryOperator
+		Function<Agent, Departments> departmentClassifier = (agt) -> agt.getAgtDepartment();
+		Map<Departments, Optional<Agent>> mostExprncdAgtMap = agents.stream().collect(
+				Collectors.groupingBy(departmentClassifier, Collectors.reducing(BinaryOperator.maxBy(byExperince))));
+		System.out.println("----------------- Showing most experienced in each group---------------------------------");
+		mostExprncdAgtMap.entrySet().forEach((e) -> System.out.println(e.getKey() + ":" + e.getValue()));
+		// get the average salary in each group
+		System.out
+				.println("------------------------ Dept With Average Salary ----------------------------------------");
+		Map<Departments, Double> deptWithAverageSalary = agents.stream().collect(Collectors.groupingBy(
+				departmentClassifier, Collectors.averagingDouble((agt) -> agt.getAgtSalary().doubleValue())));
+
+		deptWithAverageSalary.entrySet().forEach(
+				(eachElemInMap) -> System.out.println(eachElemInMap.getKey() + ":" + eachElemInMap.getValue()));
 	}
 
 	/**
