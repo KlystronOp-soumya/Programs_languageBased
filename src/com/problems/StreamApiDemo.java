@@ -178,6 +178,16 @@ public class StreamApiDemo {
 
 		agMap.entrySet().stream().forEach((o) -> System.out.println(o.getKey() + " : " + o.getValue()));
 
+		// group by department -- take the names only
+		System.out.println("----------------- Group By Department and Name -------------------------");
+		Map<Departments, List<String>> departAgtNameMap = agents.stream().collect(Collectors
+				.groupingBy(Agent::getAgtDepartment, Collectors.mapping(Agent::getAgtName, Collectors.toList())));
+		// similar to above just used lambda expression
+		Map<Departments, List<String>> departAgtNameMap2 = agents.stream().collect(Collectors.groupingBy(
+				Agent::getAgtDepartment, Collectors.mapping((agt) -> agt.getAgtName(), Collectors.toList())));
+		departAgtNameMap.entrySet()
+				.forEach((eachEntry) -> System.out.println(eachEntry.getKey() + ":" + eachEntry.getValue()));
+
 		Comparator<Agent> byExperince = Comparator.comparing(Agent::getExperience);
 		// get the most experienced people from each group -- first argument is the
 		// classifier the second one is binaryOperator
