@@ -204,6 +204,17 @@ public class StreamApiDemo {
 
 		deptWithAverageSalary.entrySet().forEach(
 				(eachElemInMap) -> System.out.println(eachElemInMap.getKey() + ":" + eachElemInMap.getValue()));
+
+		Function<Map.Entry<Departments, List<String>>, List<String>> agentNameFromMap_Mapper = (eachAgent) -> eachAgent
+				.getValue();
+		// get the names from the map --flat the map entries
+		List<String> nameLists = departAgtNameMap.entrySet().stream().flatMap(a -> a.getValue().stream())
+				.collect(Collectors.toList());
+
+		// join the names with comma
+		String names = nameLists.stream().collect(Collectors.joining(","));
+
+		System.out.println("Names: " + names);
 	}
 
 	/**
