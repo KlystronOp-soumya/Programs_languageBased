@@ -1,7 +1,8 @@
-class Ex
+class Solution
 {
-public static void main(String[] args)
+  public static void main(String[] args)
     {
+        // write code
         ExpandoMetaClass.enableGlobally()
         // write code
         def ls = [] ;
@@ -12,22 +13,30 @@ public static void main(String[] args)
             test-- ;
         }
 
-        List.metaClass.rightShift << {i  ->
+        List.metaClass.rightShift {i  ->
         delegate.remove(i)
-        delegate.size()
+        //delegate.size()
         }
       println ls
-      println ls.size()
-      println  ls >> 0
+      println ls.size() //4
+      ls.rightShift(0)
+      println ls.size() // 3
       println ls
-      println ls >> 0 ;
-      println ls  
-
-    Ex obj = new Ex() ;
-    obj.metaClass.shift = List.&rightShift ;
-    
-
-
-    sc.close() ;
+      ls >> 1
+      println ls.size() //2
+      println ls
+      
+      if("queen" in ls){
+      println "[queen groovy, slave groovy]"  
+        }
+    if("peter" in ls){
+       println "[peter groovy, clark groovy, warner groovy]"
+      }
     }
+
+/*List.metaClass.rightShift {
+   // write code
+}*/
+  // write code
+    //}
 }
