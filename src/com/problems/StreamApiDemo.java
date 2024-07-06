@@ -19,6 +19,7 @@ import java.util.function.Supplier;
 import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -107,6 +108,15 @@ public class StreamApiDemo {
 		sorting(agents);
 		streamAndOptional(agents);
 		bubbleSort();
+		predicateDemo();
+
+	}
+
+	private static void predicateDemo() {
+		Predicate<Integer> somePostiveCondition = (n) -> n > 0;
+		Predicate<Integer> checkEven = (n) -> n % 2 == 0;
+		Predicate<Integer> checkLeap = (n) -> n % 100 == 0;
+		assert somePostiveCondition.test(5) : "This is not greater than 0 ";
 
 	}
 
@@ -215,6 +225,24 @@ public class StreamApiDemo {
 		String names = nameLists.stream().collect(Collectors.joining(","));
 
 		System.out.println("Names: " + names);
+
+		System.out.println("Frequency of chars in Stting");
+		Stream<String> str2 = Stream.of("aabbccccddd");
+		Function<String, String> function = s -> s;
+		Map<String, Long> charFreq = str2.collect(Collectors.groupingBy(function, Collectors.counting()));
+
+		charFreq.entrySet().forEach(
+				(eachElemInMap) -> System.out.println(eachElemInMap.getKey() + ":" + eachElemInMap.getValue()));
+
+		String input = "aasjjikkk";
+		Map<Character, Long> frequency = input.chars().mapToObj(c -> (char) c)
+				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+		frequency.entrySet().forEach(
+				(eachElemInMap) -> System.out.println(eachElemInMap.getKey() + ":" + eachElemInMap.getValue()));
+
+		// String to list of chars
+		input.chars().mapToObj(ch -> (char) ch).collect(Collectors.toList());
 	}
 
 	/**
