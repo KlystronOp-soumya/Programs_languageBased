@@ -37,7 +37,9 @@
         "stdbool.h": "c",
         "cstdio": "c",
         "iostream": "c",
-        "lcm2.C": "cpp"
+        "lcm2.C": "cpp",
+        "algorithm": "c",
+        "format": "c"
     },
     "cmake.configureOnOpen": true,
     "zowe.settings.version": 2
