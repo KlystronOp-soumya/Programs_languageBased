@@ -105,10 +105,11 @@ public class StreamApiDemo {
 
 	public static void main(String[] args) {
 		List<Agent> agents = getData();
-		sorting(agents);
-		streamAndOptional(agents);
-		bubbleSort();
-		predicateDemo();
+		showRepeatingElems();
+		// sorting(agents);
+		// streamAndOptional(agents);
+		// bubbleSort();
+		// predicateDemo();
 
 	}
 
@@ -145,7 +146,7 @@ public class StreamApiDemo {
 
 		Predicate<Agent> salaryFilter = (Agent agt) -> agt.getAgtSalary().compareTo(new BigDecimal("55000")) > 0;
 		// create a map of Agent Name and salary
-		// merge functiona and the supplier function is not required as not chance of
+		// merge function and the supplier function is not required as not chance of
 		// conflict
 		Map<String, BigDecimal> agentSalaryMap = agents.stream().filter(salaryFilter)
 				.collect(Collectors.toMap(Agent::getAgtName, Agent::getAgtSalary));
@@ -228,12 +229,13 @@ public class StreamApiDemo {
 
 		System.out.println("Frequency of chars in Stting");
 		Stream<String> str2 = Stream.of("aabbccccddd");
-		Function<String, String> function = s -> s;
+		Function<String, String> function = s -> s; // classifier for grouping
 		Map<String, Long> charFreq = str2.collect(Collectors.groupingBy(function, Collectors.counting()));
 
 		charFreq.entrySet().forEach(
 				(eachElemInMap) -> System.out.println(eachElemInMap.getKey() + ":" + eachElemInMap.getValue()));
 
+		// frequency of the characters in a String using Function.identity
 		String input = "aasjjikkk";
 		Map<Character, Long> frequency = input.chars().mapToObj(c -> (char) c)
 				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
@@ -337,4 +339,55 @@ public class StreamApiDemo {
 		return agents;
 	}
 
+	/*
+	 * The below methods are mostly asked questions interviews
+	 * 
+	 */
+
+	static void showRepeatingElems() {
+
+		// display only the repeating elements in string
+		String str = "bbacbcdeef";
+		// As streams implements Functional programming paradigm hence always write down
+		// what do not and not how to do
+		// convert the string to stream
+		// then create a map with the #Occurences by grouping by with count
+		// filter out those entries which has #Occur > 1
+		// store these elements in a list
+
+		Stream<Character> charStream = str.chars().mapToObj(eachAscii -> (char) eachAscii);
+		// supplier , BiConsumer accumulator , BiConsumer combiner
+		Function<Character, Character> getKeyFunction = ch -> ch;
+		Predicate<Entry<Character, Integer>> countMoreThnOne = (pair) -> pair.getValue() > 1;
+
+		List<Character> freq = charStream.collect(Collectors.groupingBy(getKeyFunction, Collectors.counting()))
+				.entrySet().stream().filter(p -> p.getValue() > 1).map(p -> p.getKey()).collect(Collectors.toList());
+
+		// charStream.forEach(System.out::println);
+
+	}
+
+	static void showRepeatingElemsAsMap() {
+
+	}
+
+	static void showNthRecordInMap() {
+
+	}
+
+	static void convertMapToList() {
+
+	}
+
+	static void showFirstNonRepeatingChar() {
+
+	}
+
+	static void showSecondHighestElem() {
+
+	}
+
+	static void showFirstRepeatingChar() {
+
+	}
 }
