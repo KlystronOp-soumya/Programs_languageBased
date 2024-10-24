@@ -14,6 +14,7 @@ import java.util.Random;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.function.ToDoubleFunction;
@@ -97,20 +98,92 @@ class AgentComparator implements Comparator<Agent> {
 
 }
 
+class AgentExprComparator implements Comparator<Agent> {
+
+	@Override
+	public int compare(Agent o1, Agent o2) {
+
+		return Double.compare(o1.getExperience(), o2.getExperience());
+	}
+
+}
+
+// a class which replicates the compare method
+
+class FooComparator {
+	/**
+	 * @author Soumyadeep
+	 * @category own implementation
+	 * @param Agent object1
+	 * @param Agent object2
+	 * 
+	 * @return int -1,1 or 0
+	 */
+	public static int fooCompare(Agent a1, Agent a2) {
+		// this sorts in descending order
+		// to sort in ascending order change the greater than signs
+		if (a1.getExperience() > a2.getExperience())
+			return -1;
+		else if (a1.getExperience() < a2.getExperience())
+			return 1;
+		else
+			return 0;
+	}
+}
+
 public class StreamApiDemo {
+
+	private static List<Agent> agents;
+
+	static {
+
+		agents = getData();
+	}
 
 	private static void print(Object obj) {
 		System.out.println(((Optional<Integer>) obj).get());
 	}
 
 	public static void main(String[] args) {
-		List<Agent> agents = getData();
-		showRepeatingElems();
+		// List<Agent> agents = getData();
+		// sortAgentsOnExprUsual();
+		sortAgentsOnExprMthdRef();
+		// showRepeatingElems();
 		// sorting(agents);
 		// streamAndOptional(agents);
 		// bubbleSort();
 		// predicateDemo();
 
+	}
+
+	private static void sortAgentsOnExprUsual() {
+
+		agents.stream().forEach(System.out::println);
+		AgentExprComparator agentComparator = new AgentExprComparator();
+		// usually we will sort a collection using
+		Collections.sort(agents, agentComparator); // the second argument takes a comparator
+		System.out.println("After sorting");
+		agents.stream().forEach(System.out::println);
+
+	}
+
+	private static void sortAgentsOnExprMthdRef() {
+		// the similar thing can be achieved using the method reference
+		// as Comparator is a functional interface in Java
+
+		agents.stream().forEach(System.out::println);
+		System.out.println("After sorting");
+		Collections.sort(agents, FooComparator::fooCompare);
+
+		agents.stream().forEach(System.out::println);
+	}
+
+	private static void generateIntList() {
+		IntSupplier getInt = () -> new Random().nextInt(100); // abstract method is getAsInt
+		List<Integer> randomIntegers = IntStream.generate(getInt).boxed().collect(ArrayList::new, ArrayList::add,
+				ArrayList::addAll);
+
+		randomIntegers.stream().forEach(System.out::println);
 	}
 
 	private static void predicateDemo() {
