@@ -455,6 +455,7 @@ public class StreamApiDemo {
 		Function<Character, Character> getKeyFunction = ch -> ch;
 		Predicate<Entry<Character, Integer>> countMoreThnOne = (pair) -> pair.getValue() > 1;
 
+		// get the characters which are having occurrence more than 1
 		List<Character> freq = charStream.collect(Collectors.groupingBy(getKeyFunction, Collectors.counting()))
 				.entrySet().stream().filter(p -> p.getValue() > 1).map(p -> p.getKey()).collect(Collectors.toList());
 
@@ -463,6 +464,12 @@ public class StreamApiDemo {
 	}
 
 	static void showRepeatingElemsAsMap() {
+		// get the stream from the string
+		// Collect the stream with grouping
+		// return as map
+		String str = "apple";
+		Map<String, Long> freqMap = List.of(str).stream()
+				.collect(Collectors.groupingBy(eachChar -> eachChar, Collectors.counting()));
 
 	}
 
