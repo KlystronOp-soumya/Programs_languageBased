@@ -275,7 +275,7 @@ public class StreamApiDemo {
 
 		agMap.entrySet().stream().forEach((o) -> System.out.println(o.getKey() + " : " + o.getValue()));
 
-		// group by department -- take the names only
+		// group by department -- take the names only create map of lists
 		System.out.println("----------------- Group By Department and Name -------------------------");
 		Map<Departments, List<String>> departAgtNameMap = agents.stream().collect(Collectors
 				.groupingBy(Agent::getAgtDepartment, Collectors.mapping(Agent::getAgtName, Collectors.toList())));
