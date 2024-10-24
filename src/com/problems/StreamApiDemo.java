@@ -164,8 +164,8 @@ public class StreamApiDemo {
 
 	public static void main(String[] args) {
 		// List<Agent> agents = getData();
-		showSecondHighestElem();
-		// convertMapToList();
+		// showSecondHighestElem();
+		convertMapToList();
 		// sortAgentsOnExprUsual();
 		// sortAgentsOnExprMthdRef();
 		// showRepeatingElems();
