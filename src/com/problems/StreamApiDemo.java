@@ -216,15 +216,6 @@ public class StreamApiDemo {
 
 	}
 
-	// implements the binary search algorithm
-	private static void bubbleSort() {
-		Supplier<Integer> randomNumSupplier = () -> new Random().nextInt(10, 20);
-		List<Integer> numList = IntStream.rangeClosed(0, 9).map((i) -> i * randomNumSupplier.get())
-				.collect(ArrayList::new, ArrayList::add, ArrayList::addAll); // generates random list
-
-		numList.forEach(System.out::println);
-	}
-
 	private static void streamAndOptional(List<Agent> agents) {
 		List<Integer> numList = List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 		List<String> vowels = List.of("a", "e", "i", "o", "u", "A", "E", "I", "O", "U");
@@ -322,6 +313,7 @@ public class StreamApiDemo {
 
 		System.out.println("Names: " + names);
 
+		/* GETS FREQ OF CHARS IN STRING START */
 		System.out.println("Frequency of chars in Stting");
 		Stream<String> str2 = Stream.of("aabbccccddd");
 		Function<String, String> function = s -> s; // classifier for grouping
@@ -329,6 +321,7 @@ public class StreamApiDemo {
 
 		charFreq.entrySet().forEach(
 				(eachElemInMap) -> System.out.println(eachElemInMap.getKey() + ":" + eachElemInMap.getValue()));
+		/* GETS FREQ OF CHARS IN STRING END */
 
 		// frequency of the characters in a String using Function.identity
 		String input = "aasjjikkk";
