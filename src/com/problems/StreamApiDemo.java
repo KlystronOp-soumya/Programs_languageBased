@@ -77,6 +77,7 @@ class Agent implements Serializable, Comparable<Agent> {
 	private Departments agtDepartment;
 	private double experience;
 	private char gender;
+	private int age;
 	// based on name
 	/*
 	 * @Override
@@ -402,16 +403,17 @@ public class StreamApiDemo {
 	private static List<Agent> getData() {
 		List<Agent> agents = new ArrayList<>();
 		// Create 10 Agent objects
-		Agent agent1 = new Agent("ID1", "John Doe", new BigDecimal("50000"), Departments.SALES, 1.5, 'M');
-		Agent agent2 = new Agent("ID2", "Alice Smith", new BigDecimal("60000"), Departments.MARKETING, 3.6, 'F');
-		Agent agent3 = new Agent("ID3", "Bob Johnson", new BigDecimal("55000"), Departments.HR, 10.2, 'O');
-		Agent agent4 = new Agent("ID4", "Eva Brown", new BigDecimal("58000"), Departments.ITAPP, 5.3, 'F');
-		Agent agent5 = new Agent("ID5", "Michael Lee", new BigDecimal("52000"), Departments.SALES, 0.3, 'M');
-		Agent agent6 = new Agent("ID6", "Sophia Adams", new BigDecimal("62000"), Departments.MARKETING, 4.2, 'F');
-		Agent agent7 = new Agent("ID7", "David Clark", new BigDecimal("54000"), Departments.HR, 8.9, 'M');
-		Agent agent8 = new Agent("ID8", "Olivia White", new BigDecimal("57000"), Departments.ITNETWORKING, 6.2, 'F');
-		Agent agent9 = new Agent("ID9", "William Green", new BigDecimal("53000"), Departments.SALES, 11, 'M');
-		Agent agent10 = new Agent("ID10", "Emma Turner", new BigDecimal("61000"), Departments.MARKETING, 13.0, 'O');
+		Agent agent1 = new Agent("ID1", "John Doe", new BigDecimal("50000"), Departments.SALES, 1.5, 'M', 25);
+		Agent agent2 = new Agent("ID2", "Alice Smith", new BigDecimal("60000"), Departments.MARKETING, 3.6, 'F', 29);
+		Agent agent3 = new Agent("ID3", "Bob Johnson", new BigDecimal("55000"), Departments.HR, 10.2, 'O', 34);
+		Agent agent4 = new Agent("ID4", "Eva Brown", new BigDecimal("58000"), Departments.ITAPP, 5.3, 'F', 30);
+		Agent agent5 = new Agent("ID5", "Michael Lee", new BigDecimal("52000"), Departments.SALES, 0.3, 'M', 24);
+		Agent agent6 = new Agent("ID6", "Sophia Adams", new BigDecimal("62000"), Departments.MARKETING, 4.2, 'F', 27);
+		Agent agent7 = new Agent("ID7", "David Clark", new BigDecimal("54000"), Departments.HR, 8.9, 'M', 28);
+		Agent agent8 = new Agent("ID8", "Olivia White", new BigDecimal("57000"), Departments.ITNETWORKING, 6.2, 'F',
+				27);
+		Agent agent9 = new Agent("ID9", "William Green", new BigDecimal("53000"), Departments.SALES, 11, 'M', 36);
+		Agent agent10 = new Agent("ID10", "Emma Turner", new BigDecimal("61000"), Departments.MARKETING, 13.0, 'O', 39);
 
 		agents.add(agent1);
 		agents.add(agent2);
@@ -490,6 +492,34 @@ public class StreamApiDemo {
 		IntSummaryStatistics summaryIntStream = intStream.summaryStatistics();
 
 		System.out.println(summaryIntStream.getAverage());
+	}
+
+	private static void mapToListDemo() {
+		// The function to get the keys for the Map
+		Function<Agent, Departments> getKeyFunction = (Agent p) -> {
+			return Departments.valueOf(p.getAgtDepartment().toString());
+		};
+		// The function to get the values for the Map
+		Function<Agent, Integer> getValueFunction = (Agent p) -> {
+			return p.getAge();
+		};
+		// to merge and resolve conflict in case keys could have multiple values
+		BinaryOperator<String> mergeAgesBinaryOperator = (age1, age2) -> age1 + ',' + age2;
+
+		// supplies new Map
+		Supplier<Map<String, Integer>> mapFactorySupplier = () -> new HashMap();
+		Map<String, Integer> map = agents.stream().collect(
+				Collectors.toMap(getKeyFunction, getValueFunction, mergeAgesBinaryOperator, mapFactorySupplier));
+
+		// map.entrySet().stream().forEach(each -> System.out.println(each.getKey()));
+
+		List<String> keyStrings = new ArrayList<>();
+		List<String> valStrings = new ArrayList<>();
+		map.entrySet().stream().forEach((eachEntry) -> {
+			keyStrings.add(eachEntry.getKey());
+			valStrings.add(eachEntry.getValue());
+		});
+
 	}
 
 	static void convertMapToList() {
