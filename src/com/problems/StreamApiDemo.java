@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -20,6 +21,7 @@ import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.function.ToDoubleFunction;
+import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -466,6 +468,28 @@ public class StreamApiDemo {
 
 	static void showNthRecordInMap() {
 
+	}
+
+	// demo on the flatmap
+	static void flatMapDemo() {
+		List<List<Integer>> listOfLists = Arrays.asList(Arrays.asList(1, 2, 3), Arrays.asList(4, 5),
+				Arrays.asList(6, 7, 8));
+
+		int sum = listOfLists.stream().flatMap(eachList -> eachList.stream()).mapToInt(Integer::intValue).sum();
+	}
+
+	static void intStreamDemo() {
+		Supplier<Integer> randomNumSupplier = () -> new Random().nextInt(10, 20);
+		List<Integer> numList = IntStream.rangeClosed(0, 9).map((i) -> i * randomNumSupplier.get())
+				.collect(ArrayList::new, ArrayList::add, ArrayList::addAll); // generates random list
+
+		// convert a List to intStream
+		ToIntFunction<Integer> mapToInteger = (Integer i) -> i.intValue();
+		IntStream intStream = numList.stream().mapToInt(mapToInteger);
+
+		IntSummaryStatistics summaryIntStream = intStream.summaryStatistics();
+
+		System.out.println(summaryIntStream.getAverage());
 	}
 
 	static void convertMapToList() {
