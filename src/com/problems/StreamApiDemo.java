@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.PriorityQueue;
 import java.util.Random;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
@@ -88,8 +90,24 @@ class Agent implements Serializable, Comparable<Agent> {
 	}
 }
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+class AgentDTO implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private String agentName;
+	private Departments department;
+
+}
+
 class AgentComparator implements Comparator<Agent> {
 
+	/**
+	 * Comparator class to compare the salaries
+	 * 
+	 */
 	@Override
 	public int compare(Agent o1, Agent o2) {
 
@@ -146,8 +164,10 @@ public class StreamApiDemo {
 
 	public static void main(String[] args) {
 		// List<Agent> agents = getData();
+		showSecondHighestElem();
+		// convertMapToList();
 		// sortAgentsOnExprUsual();
-		sortAgentsOnExprMthdRef();
+		// sortAgentsOnExprMthdRef();
 		// showRepeatingElems();
 		// sorting(agents);
 		// streamAndOptional(agents);
@@ -449,6 +469,25 @@ public class StreamApiDemo {
 	}
 
 	static void convertMapToList() {
+		// convert a map to list using stream api
+		Map<Integer, String> map = new HashMap<>();
+		map.put(1, "One");
+		map.put(2, "Two");
+		map.put(3, "Three");
+
+		List<Map.Entry<Integer, String>> entryList = map.entrySet().stream().collect(Collectors.toList());
+		List<Integer> keys = map.keySet().stream().toList();
+		List<String> valuesList = map.values().stream().toList();
+
+		// create a map first
+		Map<String, Agent> agentMap = new HashMap<>();
+		Function<Agent, String> keyMapper = (agent) -> agent.getAgtId();
+		Function<Agent, Agent> valueMapper = (agent) -> agent;
+		// create a map of agent id and whole object
+		agentMap = agents.stream().collect(Collectors.toMap(Agent::getAgtId, (eachAgent) -> eachAgent));
+
+		agentMap.entrySet().forEach(
+				(eachElemInMap) -> System.out.println(eachElemInMap.getKey() + ":" + eachElemInMap.getValue()));
 
 	}
 
@@ -456,11 +495,37 @@ public class StreamApiDemo {
 
 	}
 
-	static void showSecondHighestElem() {
+	static void showSecondHighestElem() {// it should be implemented using MaxHeap in O(n) without sorting
+
+		Supplier<Integer> randomNumSupplier = () -> new Random().nextInt(10, 20);
+		List<Integer> numList = IntStream.rangeClosed(0, 9).map((i) -> i * randomNumSupplier.get())
+				.collect(ArrayList::new, ArrayList::add, ArrayList::addAll); // generates random list
+
+		numList.stream().forEach(System.out::println);
+
+		Optional<Integer> secondHigh = numList.stream().sorted(Comparator.reverseOrder()).skip(1).findFirst();
+		System.out.println("Second largest: " + secondHigh.orElse(Integer.MAX_VALUE));
+
+		// now lets use the priorityQueue
+		PriorityQueue<Integer> pq = numList.stream().collect(PriorityQueue::new, PriorityQueue::add,
+				PriorityQueue::addAll);
+		pq.remove();
+		int secHigh = pq.remove();
+		System.out.println("Second high in PQ: " + secHigh); // this would result in the second lowest value as this is
+																// a MaxHeap
+		// we need to convert it into the MinHeap
+		PriorityQueue<Integer> pqMin = numList.stream().collect(() -> new PriorityQueue(Comparator.reverseOrder()),
+				PriorityQueue::add, PriorityQueue::addAll);
+		pqMin.remove();
+		System.out.println("Now the second highest: " + pqMin.poll());
 
 	}
 
 	static void showFirstRepeatingChar() {
+
+	}
+
+	static void checkAnagram() {
 
 	}
 }
