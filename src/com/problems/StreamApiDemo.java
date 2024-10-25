@@ -167,8 +167,9 @@ public class StreamApiDemo {
 
 	public static void main(String[] args) {
 		// List<Agent> agents = getData();
+		mapToListDemo();
 		// showSecondHighestElem();
-		convertMapToList();
+		// convertMapToList();
 		// sortAgentsOnExprUsual();
 		// sortAgentsOnExprMthdRef();
 		// showRepeatingElems();
@@ -496,29 +497,23 @@ public class StreamApiDemo {
 
 	private static void mapToListDemo() {
 		// The function to get the keys for the Map
-		Function<Agent, Departments> getKeyFunction = (Agent p) -> {
-			return Departments.valueOf(p.getAgtDepartment().toString());
+		Function<Agent, String> getKeyFunction = (Agent p) -> {
+			return p.getAgtDepartment().toString();
 		};
 		// The function to get the values for the Map
-		Function<Agent, Integer> getValueFunction = (Agent p) -> {
-			return p.getAge();
+		Function<Agent, String> getValueFunction = (Agent p) -> {
+			return String.valueOf(p.getAge());
 		};
 		// to merge and resolve conflict in case keys could have multiple values
 		BinaryOperator<String> mergeAgesBinaryOperator = (age1, age2) -> age1 + ',' + age2;
 
 		// supplies new Map
-		Supplier<Map<String, Integer>> mapFactorySupplier = () -> new HashMap();
-		Map<String, Integer> map = agents.stream().collect(
+		Supplier<Map<String, String>> mapFactorySupplier = () -> new HashMap<String, String>();
+		Map<String, String> agentDeptAgeMap = agents.stream().collect(
 				Collectors.toMap(getKeyFunction, getValueFunction, mergeAgesBinaryOperator, mapFactorySupplier));
 
-		// map.entrySet().stream().forEach(each -> System.out.println(each.getKey()));
-
-		List<String> keyStrings = new ArrayList<>();
-		List<String> valStrings = new ArrayList<>();
-		map.entrySet().stream().forEach((eachEntry) -> {
-			keyStrings.add(eachEntry.getKey());
-			valStrings.add(eachEntry.getValue());
-		});
+		agentDeptAgeMap.entrySet().forEach(
+				(eachElemInMap) -> System.out.println(eachElemInMap.getKey() + ":" + eachElemInMap.getValue()));
 
 	}
 
