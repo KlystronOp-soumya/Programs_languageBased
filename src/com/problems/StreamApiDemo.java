@@ -554,8 +554,8 @@ public class StreamApiDemo {
 		// then classify the characters to string and collect using the counting
 		// this will return a Map of Str:Int
 
-		Map<String, Long> freqMap = str.chars().mapToObj(e -> (char) e)
-				.collect(Collectors.groupingBy(classifierStr, Collectors.counting()));
+		Map<String, Integer> freqMap = str.chars().mapToObj(e -> (char) e)
+				.collect(Collectors.groupingBy(classifierStr, Collectors.summingInt(e -> 1)));
 
 		// print the map
 		freqMap.entrySet().forEach(
@@ -568,6 +568,7 @@ public class StreamApiDemo {
 				.map((entry) -> entry.getKey());
 
 		System.out.println(opt.get());
+
 	}
 
 	static void showSecondHighestElem() {// it should be implemented using MaxHeap in O(n) without sorting
