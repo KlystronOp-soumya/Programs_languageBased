@@ -167,7 +167,8 @@ public class StreamApiDemo {
 
 	public static void main(String[] args) {
 		// List<Agent> agents = getData();
-		mapToListDemo();
+		showFirstNonRepeatingChar();
+		// mapToListDemo();
 		// showSecondHighestElem();
 		// convertMapToList();
 		// sortAgentsOnExprUsual();
@@ -542,6 +543,31 @@ public class StreamApiDemo {
 
 	static void showFirstNonRepeatingChar() {
 
+		String str = "abdabcd";
+		// complexity O(n) space O(n)
+		// convert the string to a map of char freq
+		// then get the char which has the freq= 1
+
+		Function<Character, String> classifierStr = (Character c) -> String.valueOf(c);
+
+		// need to convert the intStream to char first
+		// then classify the characters to string and collect using the counting
+		// this will return a Map of Str:Int
+
+		Map<String, Long> freqMap = str.chars().mapToObj(e -> (char) e)
+				.collect(Collectors.groupingBy(classifierStr, Collectors.counting()));
+
+		// print the map
+		freqMap.entrySet().forEach(
+				(eachElemInMap) -> System.out.println(eachElemInMap.getKey() + ":" + eachElemInMap.getValue()));
+
+		// now get the entry / character which has the freq = 1
+		// till the findFirst is returns Entry
+		// then map it to getKey
+		Optional<?> opt = freqMap.entrySet().stream().filter((pair) -> pair.getValue() == 1).findFirst()
+				.map((entry) -> entry.getKey());
+
+		System.out.println(opt.get());
 	}
 
 	static void showSecondHighestElem() {// it should be implemented using MaxHeap in O(n) without sorting
