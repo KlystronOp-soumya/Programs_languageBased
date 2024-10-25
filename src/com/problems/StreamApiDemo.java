@@ -604,4 +604,12 @@ public class StreamApiDemo {
 	static void checkAnagram() {
 
 	}
+
+	static void summingCollectors() {
+		List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+		Integer sum = numbers.stream().collect(Collectors.summingInt(Integer::intValue));
+		System.out.println("Sum: " + sum);
+
+	}
+
 }
