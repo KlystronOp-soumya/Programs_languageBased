@@ -167,7 +167,8 @@ public class StreamApiDemo {
 
 	public static void main(String[] args) {
 		// List<Agent> agents = getData();
-		showFirstNonRepeatingChar();
+		showLongestName();
+		// showFirstNonRepeatingChar();
 		// mapToListDemo();
 		// showSecondHighestElem();
 		// convertMapToList();
@@ -610,6 +611,45 @@ public class StreamApiDemo {
 		Integer sum = numbers.stream().collect(Collectors.summingInt(Integer::intValue));
 		System.out.println("Sum: " + sum);
 
+	}
+
+	// collectingAndThen Demo
+	public static void collectingAndThenDemo() {
+		// get the longest name of the Agents
+		String longestNames = agents.stream().collect(
+				Collectors.collectingAndThen(Collectors.mapping(Agent::getAgtName, Collectors.toList()), nameList -> {
+					return nameList.stream().collect(Collectors.maxBy(Comparator.comparing(String::length)))
+							.orElse("?");
+
+				}));
+
+		// the same can be achieved using the reduction function
+
+	}
+
+	public static void showLongestName() {
+		// first get the list of the names
+		List<String> agentNames = agents.stream()
+				.collect(Collectors.mapping((eachObj) -> eachObj.getAgtName(), Collectors.toUnmodifiableList()));
+
+		List<String> agentNames2 = agents.stream().map(Agent::getAgtName).toList();
+
+		// show the lists to check if they are same
+
+		// then reduce
+		BinaryOperator<String> accumulateNames = (str1, str2) -> str1.length() > str2.length() ? str1 : str2;
+		String logestName = agentNames.stream().reduce(accumulateNames).orElse("?");
+
+		String lonString = agents.stream()
+				.collect(Collectors.reducing("Undefined", Agent::getAgtName, accumulateNames));
+
+		// otherwise we can use sort
+		Comparator<String> nameComparator = Comparator.comparing(String::length);
+		String longestName2 = agents.stream().map(Agent::getAgtName).sorted(nameComparator.reversed()).findFirst()
+				.orElse("?");
+
+		System.out.println("Longest name using reduce: " + logestName + "\n using reducing: " + lonString
+				+ "\n using sorting: " + longestName2);
 	}
 
 }
