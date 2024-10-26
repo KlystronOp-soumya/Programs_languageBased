@@ -167,7 +167,8 @@ public class StreamApiDemo {
 
 	public static void main(String[] args) {
 		// List<Agent> agents = getData();
-		showLongestName();
+		showFirstRepeatingChar();
+		// showLongestName();
 		// showFirstNonRepeatingChar();
 		// mapToListDemo();
 		// showSecondHighestElem();
@@ -591,14 +592,22 @@ public class StreamApiDemo {
 		System.out.println("Second high in PQ: " + secHigh); // this would result in the second lowest value as this is
 																// a MaxHeap
 		// we need to convert it into the MinHeap
-		PriorityQueue<Integer> pqMin = numList.stream().collect(() -> new PriorityQueue(Comparator.reverseOrder()),
-				PriorityQueue::add, PriorityQueue::addAll);
+		PriorityQueue<Integer> pqMin = numList.stream().collect(
+				() -> new PriorityQueue<Integer>(Comparator.reverseOrder()), PriorityQueue::add, PriorityQueue::addAll);
 		pqMin.remove();
 		System.out.println("Now the second highest: " + pqMin.poll());
 
 	}
 
 	static void showFirstRepeatingChar() {
+
+		String str = "addacecb";
+
+		String firstRepeatingChar = str.chars().mapToObj(ch -> (char) ch)
+				.collect(Collectors.groupingBy(ch -> String.valueOf(ch), Collectors.summingInt(n -> 1))).entrySet()
+				.stream().filter((pair) -> pair.getValue() == 2).findFirst().get().getKey();
+
+		System.out.println("First repeating character: " + firstRepeatingChar);
 
 	}
 
