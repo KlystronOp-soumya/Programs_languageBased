@@ -167,7 +167,8 @@ public class StreamApiDemo {
 
 	public static void main(String[] args) {
 		// List<Agent> agents = getData();
-		showFirstRepeatingChar();
+		generateIntList();
+		// showFirstRepeatingChar();
 		// showLongestName();
 		// showFirstNonRepeatingChar();
 		// mapToListDemo();
@@ -206,11 +207,21 @@ public class StreamApiDemo {
 	}
 
 	private static void generateIntList() {
-		IntSupplier getInt = () -> new Random().nextInt(100); // abstract method is getAsInt
-		List<Integer> randomIntegers = IntStream.generate(getInt).boxed().collect(ArrayList::new, ArrayList::add,
-				ArrayList::addAll);
+		IntSupplier getInt = () -> {
+			return (int) (Math.random() * 100);
+		}; // abstract method is getAsInt
 
-		randomIntegers.stream().forEach(System.out::println);
+		List<Integer> randomIntegers = IntStream.generate(getInt).boxed().limit(10).collect(ArrayList::new,
+				ArrayList::add, ArrayList::addAll);
+		/*
+		 * Supplier<Integer> randomNumSupplier = () -> new Random().nextInt(10, 20);
+		 * List<Integer> numList = IntStream.rangeClosed(0, 9).map((i) -> i *
+		 * randomNumSupplier.get()) .collect(ArrayList::new, ArrayList::add,
+		 * ArrayList::addAll); // generates random list
+		 */
+
+		randomIntegers.stream().limit(10).forEach(System.out::println);
+		// numList.stream().forEach(System.out::println);
 	}
 
 	private static void predicateDemo() {
