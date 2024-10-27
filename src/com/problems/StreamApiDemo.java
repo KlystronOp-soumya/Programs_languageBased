@@ -167,7 +167,8 @@ public class StreamApiDemo {
 
 	public static void main(String[] args) {
 		// List<Agent> agents = getData();
-		sortAgentsOnExprStream();
+		sortAgentByExprAndSalary();
+		// sortAgentsOnExprStream();
 		// generateIntList();
 		// showFirstRepeatingChar();
 		// showLongestName();
@@ -231,6 +232,8 @@ public class StreamApiDemo {
 
 		Comparator<Double> doubleKeyComparator = (d1, d2) -> Double.compare(d1, d2);
 
+		// notice the type reference of this pair of keyExtractFunction and
+		// keyComparator
 		Comparator<Agent> compareExprKey = Comparator.comparing(keyExtracFunction, keyComparator);
 		// Comparator<Agent> compareExprKey = Comparator.comparing(keyExtracFunction,
 		// doubleKeyComparator);
@@ -242,6 +245,25 @@ public class StreamApiDemo {
 		// otherwise we can use the other version of Comparator.comparing()
 		System.out.println("\n\n\nx");
 		agents.stream().sorted(Comparator.comparing(keyExtracFunction)).forEach(System.out::println);
+	}
+
+	/**
+	 * Method to sort agent based on Expr and Salary with less experience but high
+	 * salary
+	 */
+	private static void sortAgentByExprAndSalary() {
+
+		// for less experience either write down own if else block comparator
+		// or use usual comparator then reverse
+		Comparator<Agent> agtExprComparator = (Agent d1, Agent d2) -> Double.compare(d1.getExperience(),
+				d2.getExperience()); // use this is reversed manner
+
+		Comparator<Agent> agtExprRevrsd = agtExprComparator.reversed();
+		Comparator<Agent> agtSalComparator = Comparator.comparing(Agent::getAgtSalary, (s1, s2) -> s1.compareTo(s2));
+
+		agents.stream().sorted(agtExprRevrsd.thenComparing(agtSalComparator)).forEach(System.out::println);
+		;
+
 	}
 
 	private static void generateIntList() {
