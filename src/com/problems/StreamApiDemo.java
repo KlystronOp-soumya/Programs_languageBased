@@ -167,7 +167,8 @@ public class StreamApiDemo {
 
 	public static void main(String[] args) {
 		// List<Agent> agents = getData();
-		generateIntList();
+		sortAgentsOnExprStream();
+		// generateIntList();
 		// showFirstRepeatingChar();
 		// showLongestName();
 		// showFirstNonRepeatingChar();
@@ -204,6 +205,43 @@ public class StreamApiDemo {
 		Collections.sort(agents, FooComparator::fooCompare);
 
 		agents.stream().forEach(System.out::println);
+	}
+
+	/**
+	 * Sorts agent based on their experience in ascending order using stream
+	 */
+	private static void sortAgentsOnExprStream() {
+
+		// method to sort the agents based on their increasing experince using Stream
+		// api
+		Function<Agent, Double> keyExtracFunction = (Agent agt) -> agt.getExperience();
+		Comparator<Double> keyComparator = (Double d1, Double d2) -> {
+
+			// we could have used Double.compare()
+			if (d1 > d2)
+				return 1;
+			else if (d1 < d2)
+				return -1;
+			else
+				return 0;
+
+		};
+		// reversed comparator
+		Comparator<Double> keyComaComparatorRevrsd = keyComparator.reversed();
+
+		Comparator<Double> doubleKeyComparator = (d1, d2) -> Double.compare(d1, d2);
+
+		Comparator<Agent> compareExprKey = Comparator.comparing(keyExtracFunction, keyComparator);
+		// Comparator<Agent> compareExprKey = Comparator.comparing(keyExtracFunction,
+		// doubleKeyComparator);
+
+		// Comparator<Agent> compareExprKey = Comparator.comparing(keyExtracFunction,
+		// Double::compare);
+		agents.stream().sorted(compareExprKey).forEach(System.out::println);
+
+		// otherwise we can use the other version of Comparator.comparing()
+		System.out.println("\n\n\nx");
+		agents.stream().sorted(Comparator.comparing(keyExtracFunction)).forEach(System.out::println);
 	}
 
 	private static void generateIntList() {
