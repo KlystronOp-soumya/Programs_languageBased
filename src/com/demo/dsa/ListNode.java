@@ -20,4 +20,8 @@ public class ListNode {
 	 */
 	private ListNode nextNode;
 
+	ListNode(final int data) {
+		this(data, null);
+	}
+
 }

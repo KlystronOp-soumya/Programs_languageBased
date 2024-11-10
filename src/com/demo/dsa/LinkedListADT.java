@@ -37,4 +37,23 @@ public class LinkedListADT {
 		this.headNode = currNode;
 	}
 
+	synchronized public void appendNode(ListNode headNode, final int data) {
+
+		ListNode temp, r;
+		// check if the headNode is null
+		if (headNode == null) {
+			// create a temporary
+			temp = new ListNode(data);
+			headNode = temp;
+		} else {
+			temp = headNode;
+			while (temp.getNextNode() != null) {
+				temp = temp.getNextNode();
+			}
+
+			r = new ListNode(data);
+			temp = r;
+		}
+	}
+
 }
