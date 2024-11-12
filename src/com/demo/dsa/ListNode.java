@@ -21,7 +21,10 @@ public class ListNode {
 	private ListNode nextNode;
 
 	ListNode(final int data) {
-		this(data, null);
+		// this(data, null);
+
+		this.data = data;
+		this.nextNode = null;
 	}
 
 }
