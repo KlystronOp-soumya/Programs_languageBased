@@ -7,7 +7,13 @@ public class Espresso extends Coffee {
 	@Override
 	BigDecimal cost() {
 
-		return null;
+		return new BigDecimal(1.2D);
+	}
+
+	@Override
+	String getDescription() {
+
+		return "Espresso";
 	}
 
 }

@@ -6,8 +6,14 @@ public class Mocha extends Coffee {
 
 	@Override
 	BigDecimal cost() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return new BigDecimal(1.8D);
+	}
+
+	@Override
+	String getDescription() {
+
+		return "Mocha";
 	}
 
 }

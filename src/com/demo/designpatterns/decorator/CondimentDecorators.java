@@ -10,7 +10,7 @@ import lombok.Setter;
 public class CondimentDecorators extends Coffee {
 
 	// wrapper
-	private Coffee coffeeWrapper;
+	public Coffee coffeeWrapper;
 
 	@Override
 	BigDecimal cost() {

@@ -6,7 +6,7 @@ import java.math.BigDecimal;
  * Cappucino : MilkFoam , Espresso , Milk
  * 
  * */
-public class Cappucion extends Coffee {
+public class Cappucino extends Coffee {
 
 	@Override
 	BigDecimal cost() {

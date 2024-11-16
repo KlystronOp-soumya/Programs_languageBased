@@ -6,8 +6,13 @@ public class Latte extends Coffee {
 
 	@Override
 	BigDecimal cost() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return new BigDecimal(2.0D);
 	}
 
+	@Override
+	String getDescription() {
+
+		return "Latte";
+	}
 }
