@@ -10,8 +10,13 @@ public class Americano extends Coffee {
 
 	@Override
 	BigDecimal cost() {
-		// TODO Auto-generated method stub
+
 		return new BigDecimal(3.2D);
 	}
 
+	@Override
+	String getDescription() {
+
+		return "Americano";
+	}
 }
