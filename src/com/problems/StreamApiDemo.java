@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.IntSummaryStatistics;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -167,7 +168,7 @@ public class StreamApiDemo {
 
 	public static void main(String[] args) {
 		// List<Agent> agents = getData();
-		sortAgentByExprAndSalary();
+		// sortAgentByExprAndSalary();
 		// sortAgentsOnExprStream();
 		// generateIntList();
 		// showFirstRepeatingChar();
@@ -183,6 +184,21 @@ public class StreamApiDemo {
 		// streamAndOptional(agents);
 		// bubbleSort();
 		// predicateDemo();
+
+		// getIntStreamFromList();
+		showNthRecordInMap();
+
+	}
+
+	private static void getIntStreamFromList() {
+		Random r = new Random();
+		// create a list of ints
+		List<Integer> numList = IntStream.generate(() -> r.nextInt() * 100).boxed().limit(10L)
+				.collect(() -> new LinkedList<>(), LinkedList::add, LinkedList::addAll);
+
+		IntStream intStream = numList.stream().mapToInt(n -> n.intValue());
+
+		intStream.boxed().toList();
 
 	}
 
@@ -545,6 +561,14 @@ public class StreamApiDemo {
 
 	static void showNthRecordInMap() {
 
+		// show the Nth record in a Map
+		// create a map from the available data
+		Map<String, Integer> agentNameAgeMap = agents.stream()
+				.collect(Collectors.toMap((eachAgent) -> eachAgent.getAgtName(), (eachAgent) -> eachAgent.getAge()));
+
+		Optional<Entry<String, Integer>> opt = agentNameAgeMap.entrySet().stream().skip(2).findFirst();
+
+		System.out.println(opt.get().getKey() + " : " + opt.get().getValue());
 	}
 
 	// demo on the flatmap
