@@ -2,14 +2,14 @@ package com.demo.threading;
 
 class CallMe {
 
-	void call(String msg) {
+	synchronized void call(String msg) {
 		System.out.println("[" + msg);
 		try {
 			Thread.sleep(1000);
 			// System.out.println("The thread was stopped " + Thread.currentThread());
 
 		} catch (Exception e) {
-			// TODO: handle exception
+
 			System.err.println("Interrupted");
 		}
 		System.out.println("]");
@@ -29,13 +29,13 @@ class Caller implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+
 		// to avoid the race condition add the synchronized
 		// Now each thread waits for the previous thread to be completed
 
-		synchronized (target) {
-			target.call(msg);
-		}
+		// synchronized (target) {
+		target.call(msg);
+		// }
 
 		// target.call(msg);
 
@@ -45,7 +45,7 @@ class Caller implements Runnable {
 
 public class Synch {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		CallMe target = new CallMe();
 		// calling same method on same object using three thread
 		// hence results into race condition
@@ -58,6 +58,11 @@ public class Synch {
 		obj3.t.setName("thread 3");
 
 		obj1.t.start();
+		// the below instruction will not work
+		// obj1.t.wait();// even if the thread was put to sleep because of synch others
+		// were waiting
+		obj1.t.sleep(5000);
+
 		obj2.t.start();
 		obj3.t.start();
 
@@ -77,7 +82,7 @@ public class Synch {
 			// System.out.println("The thread: " + obj3.t.getName() + " is alive: " +
 			// obj3.t.isAlive());
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 	}

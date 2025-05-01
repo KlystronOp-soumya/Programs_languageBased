@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class WeatherUpdate implements Subject {
 
-	private double temperature, humidity, aqi, atmosphericPressue;
+	private double temperature, humidity, aqi, atmosphericPressue, rain, windSpeed;
 
 	// to register HAS-A
 	private transient Set<Observer> observers;

@@ -26,6 +26,8 @@ public class Processor {
 			sc.nextLine();
 			System.out.println("Return key was pressed!");
 			notify();
+			Thread.sleep(5000);
+			System.out.println("Thread state: " + Thread.currentThread().getState().name());
 		}
 
 	}
@@ -58,12 +60,13 @@ public class Processor {
 
 			t1.start();
 			t2.start();
-
+			// If I put here the main thread will be interrrupted
+			// Thread.currentThread().interrupt();
 			t1.join();
 			t2.join();
 
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 	}
 }

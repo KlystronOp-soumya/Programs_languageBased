@@ -11,7 +11,7 @@ public class MilkCondiment extends CondimentDecorators {
 	@Override
 	BigDecimal cost() {
 
-		return new BigDecimal(0.3D);
+		return new BigDecimal(0.3D).add(coffeeWrapper.cost());
 	}
 
 	@Override

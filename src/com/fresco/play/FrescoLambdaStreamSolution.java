@@ -64,7 +64,7 @@ public class FrescoLambdaStreamSolution {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		LambdaFn objeFn = new LambdaFn();
+		LambdaFnt objeFn = new LambdaFnt();
 		List<String> iStrings = new ArrayList<>();
 
 		for (int i = 1; i <= 99; ++i) {
