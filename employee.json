@@ -1,0 +1,10 @@
+{
+  "id": 101,
+  "name": "John Doe",
+  "department": "Engineering",
+  "skills": ["Java", "Spring", "AWS"],
+  "address": {
+    "street": "123 Main St",
+    "city": "New York"
+  }
+}
