@@ -189,6 +189,7 @@ public class StreamApiDemo {
 		// getIntStreamFromList();
 		// showNthRecordInMap();
 		intstreamAndComparator();
+		checkAnagram();
 	}
 
 	private static void intstreamAndComparator() {
@@ -515,6 +516,17 @@ public class StreamApiDemo {
 	}
 
 	static void checkAnagram() {
+		String str1 = null, str2 = null;
+		if (str1.length() != str2.length()) {
+			// false; // Different lengths can't be anagrams
+		}
+
+		// Sort characters using Stream API
+		String sortedStr1 = Stream.of(str1.split("")).sorted().collect(Collectors.joining());
+
+		String sortedStr2 = Stream.of(str2.split("")).sorted().collect(Collectors.joining());
+
+		sortedStr1.equals(sortedStr2);
 
 	}
 
