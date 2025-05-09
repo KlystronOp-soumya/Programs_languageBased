@@ -189,7 +189,7 @@ public class StreamApiDemo {
 		// getIntStreamFromList();
 		// showNthRecordInMap();
 		intstreamAndComparator();
-		checkAnagram();
+		// checkAnagram();
 	}
 
 	private static void intstreamAndComparator() {
@@ -320,6 +320,26 @@ public class StreamApiDemo {
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 		System.out.println(higherSalariedInDeptMapNonBlank);
 
+		// create a map of Agent name vs Dept
+		List<Agent> agents2 = getData();
+
+		Map<Agent, Departments> agentDeptMap = agents2.stream()
+				.collect(Collectors.toMap(Function.identity(), t -> t.getAgtDepartment()));
+
+		System.out.println(agentDeptMap);
+
+		// sort the entries based on the Agent salary --need to check
+		Function<Entry<Agent, Departments>, BigDecimal> extractSalary = entry -> entry.getKey().getAgtSalary();
+		Comparator<Entry<Agent, Departments>> compareBySalary = (a, b) -> a.getKey().getAgtSalary()
+				.compareTo(b.getKey().getAgtSalary());
+		// nameDeptMap.entrySet().stream().sorted(compareBySalary.reversed());
+		Map<String, Departments> nameDeptMap = agents2.stream()
+				.collect(Collectors.toMap((agt) -> agt.getAgtName(), t -> t.getAgtDepartment()));
+
+		System.out.println(nameDeptMap);
+
+		// sort the map based on longest name
+
 	}
 
 	private static List<Agent> getData() {
@@ -335,7 +355,8 @@ public class StreamApiDemo {
 		Agent agent8 = new Agent("ID8", "Olivia White", new BigDecimal("57000"), Departments.ITNETWORKING, 6.2, 'F',
 				27);
 		Agent agent9 = new Agent("ID9", "William Green", new BigDecimal("53000"), Departments.SALES, 11, 'M', 36);
-		Agent agent10 = new Agent("ID10", "Emma Turner", new BigDecimal("61000"), Departments.MARKETING, 13.0, 'O', 39);
+		Agent agent10 = new Agent("ID10", "Emma TurnerGreenGreen", new BigDecimal("61000"), Departments.MARKETING, 13.0,
+				'O', 39);
 
 		agents.add(agent1);
 		agents.add(agent2);
