@@ -12,7 +12,7 @@ typedef struct stackADT
 void initialize(Stack *stk)
 {
     stk->st = new int[100]; //say creating an array of 100 ints
-    stk->top = -1;
+    stk->top = -1; //intialized top at -1
 }
 
 void push(Stack *stk, int n)
