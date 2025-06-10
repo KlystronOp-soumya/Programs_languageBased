@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.IntSummaryStatistics;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -188,8 +189,12 @@ public class StreamApiDemo {
 
 		// getIntStreamFromList();
 		// showNthRecordInMap();
-		intstreamAndComparator();
+		// intstreamAndComparator();
 		// checkAnagram();
+		// findMissingElementInArray();
+		tokenizeString();
+		makeRequestURL();
+
 	}
 
 	private static void intstreamAndComparator() {
@@ -597,4 +602,80 @@ public class StreamApiDemo {
 				+ "\n using sorting: " + longestName2);
 	}
 
+	/*
+	 * The below question where asked in Infy interview F2F
+	 * 
+	 * 1. Given a sentence get the words with freq > 1 2. From a Query params map
+	 * form the whole request URL 3. Get the missing element from an array
+	 * 
+	 */
+
+	static void findMissingElementInArray() {
+		int[] ar = { 2, 1, 4, 6, 5 }; // 3 is missing
+		ar = Arrays.stream(ar).sorted().toArray();
+		int x = 1;
+		for (Integer i : ar) {
+			if ((x ^ i) != 0) {
+				System.out.println("Missing: " + x);
+				break;
+			}
+
+			x++;
+		}
+
+	}
+
+	/*
+	 * Actual approach
+	 */
+	public static void MissingElementFinder() {
+		int[] numbers = { 1, 2, 3, 5 }; // Missing 4
+
+		int n = 5; // Maximum number in the sequence
+		int missingNumber = IntStream.rangeClosed(1, n).sum() - IntStream.of(numbers).sum();
+
+		System.out.println("Missing number: " + missingNumber);
+	}
+
+	/*
+	 * Tokenize a sentence and find frequency of each word
+	 * 
+	 */
+	static void tokenizeString() {
+		final String str = "a b a c a d e f";
+
+		Map<String, Long> freq = Arrays.asList(str.split(" ")).stream()
+				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+		System.out.println(freq);
+
+	}
+
+	/*
+	 * Create a URL from a base URL and add request params
+	 * 
+	 */
+	static void makeRequestURL() {
+
+		StringBuffer stringBuffer = new StringBuffer("http://myacademia.edu.in");
+		Map<String, String> queryParamsMap = new LinkedHashMap<>();
+		queryParamsMap.put("Id", "123");
+		queryParamsMap.put("Name", "ABC");
+		queryParamsMap.put("Type", "Uni");
+
+		// baseUrl?Id=123&Name=ABC&Type=Uni
+
+		// The below code wont gurantee the insertion order of the HashMap as stream
+		// doesnot maintain the order
+		// Use LinkedHashMap to maintain the order
+
+		List<String> qList = queryParamsMap.entrySet().stream().map(ep -> ep.getKey() + "=" + ep.getValue()).toList();
+		String queryParams = queryParamsMap.entrySet().stream().map(ep -> ep.getKey() + "=" + ep.getValue())
+				.collect(Collectors.joining("&"));
+		String queryParams2 = queryParamsMap.entrySet().stream().map(ep -> ep.getKey() + "=" + ep.getValue())
+				.collect(Collectors.collectingAndThen(Collectors.joining("&"), s -> s.trim()));
+		System.out.println("queryParams: " + queryParams2);
+		System.out.println("Request URL: " + stringBuffer + "?" + queryParams2);
+
+	}
 }
