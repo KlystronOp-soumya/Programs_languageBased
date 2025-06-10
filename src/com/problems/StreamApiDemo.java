@@ -194,6 +194,7 @@ public class StreamApiDemo {
 		// findMissingElementInArray();
 		tokenizeString();
 		makeRequestURL();
+		stringTask();
 
 	}
 
@@ -676,6 +677,32 @@ public class StreamApiDemo {
 				.collect(Collectors.collectingAndThen(Collectors.joining("&"), s -> s.trim()));
 		System.out.println("queryParams: " + queryParams2);
 		System.out.println("Request URL: " + stringBuffer + "?" + queryParams2);
+
+	}
+	/*
+	 * Codeforces problem -- String task replaces the vowels adds '.' before each
+	 * consonant without quotes change the case of the uppercase consonant to the
+	 * lower case
+	 * 
+	 */
+
+	public static void stringTask() {
+
+		// replace vowels -> add . before eache consonant -> change the Upper case
+		// consonant to lower case
+		Predicate<Character> checkVowel = (c) -> !"aeiouy".contains(String.valueOf(c).toLowerCase());
+		Function<Character, String> changeCase = (Character c) -> (c >= 65 && c <= 97) ? String.valueOf(c).toLowerCase()
+				: String.valueOf(c);
+		String str = "abcdYweXiG";
+		String res = str.chars().mapToObj(c -> (char) c).filter(checkVowel).map(changeCase)
+				.collect(Collectors.collectingAndThen(Collectors.joining("."), s -> ".".concat(s)));
+		String res2 = ".";
+		res2 += str.chars().mapToObj(c -> (char) c).filter(checkVowel).map(changeCase).collect(Collectors.joining("."));
+
+		System.out.println(res);
+		System.out.println(res2);
+
+		assert res.equals(res2);
 
 	}
 }
