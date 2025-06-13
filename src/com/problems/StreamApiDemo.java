@@ -22,6 +22,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
+import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
@@ -195,7 +196,7 @@ public class StreamApiDemo {
 		tokenizeString();
 		makeRequestURL();
 		stringTask();
-
+		generateFibonacciSeq();
 	}
 
 	private static void intstreamAndComparator() {
@@ -703,6 +704,66 @@ public class StreamApiDemo {
 		System.out.println(res2);
 
 		assert res.equals(res2);
+
+	}
+
+	/*
+	 * Method to generate Fibonacci Sequence using Stream
+	 * 
+	 */
+	public static void generateFibonacciSeq() {
+
+		/*
+		 * List<Integer> fibSequence = Stream.iterate(new int[] { 0, 1 }, f -> new int[]
+		 * { f[0], f[0] + f[1] }).limit(10) .map(f -> f[0]).toList();
+		 * fibSequence.forEach(System.out::println);
+		 */
+
+		IntSupplier fibSupplier = new IntSupplier() {
+			private int previous = 0, current = 1;
+
+			@Override
+			public int getAsInt() {
+				int next = previous;
+				previous = current;
+				current = next + current;
+				return next;
+			}
+		};
+
+		IntStream.generate(fibSupplier).limit(10) // Generate first 10 Fibonacci numbers
+				.forEach(System.out::println);
+
+		System.out.println("Using method ref");
+		NumberUtil util = new NumberUtil();
+		IntStream.generate(util::getNextFibNum).limit(10).forEach(System.out::println);
+	}
+
+	// this nested class is to use method reference for Fibonaccu sequence
+	static final class NumberUtil {
+		private int prev = 0, curr = 1;
+
+		public int getNextFibNum() {
+			int next = prev + curr;
+			prev = curr;
+			curr = next;
+			return next;
+		}
+
+	}
+
+	/*
+	 * Stream iterate demo
+	 * 
+	 * <p>Parameters: This method accepts three parameters: seed: which is the
+	 * initial element, hasNext: which is a predicate to apply to elements to
+	 * determine when the stream must terminate and next: which is a function to be
+	 * applied to the previous element to produce a new element. </p>
+	 * 
+	 */
+	public static void streamIteratorDemo() {
+		// create a stream using iterate
+		Stream<Integer> stream = Stream.iterate(1, i -> i <= 20, i -> i * 2);
 
 	}
 }
