@@ -198,6 +198,7 @@ public class StreamApiDemo {
 		stringTask();
 		generateFibonacciSeq();
 		changeCaseStrings();
+		streamIteratorDemo();
 	}
 
 	private static void intstreamAndComparator() {
@@ -775,6 +776,7 @@ public class StreamApiDemo {
 	public static void streamIteratorDemo() {
 		// create a stream using iterate
 		Stream<Integer> stream = Stream.iterate(1, i -> i <= 20, i -> i * 2);
+		stream.forEach(System.out::println);
 
 	}
 }
