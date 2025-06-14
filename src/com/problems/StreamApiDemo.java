@@ -197,6 +197,7 @@ public class StreamApiDemo {
 		makeRequestURL();
 		stringTask();
 		generateFibonacciSeq();
+		changeCaseStrings();
 	}
 
 	private static void intstreamAndComparator() {
@@ -749,6 +750,16 @@ public class StreamApiDemo {
 			curr = next;
 			return next;
 		}
+
+	}
+
+	// lower to upper case
+	public static void changeCaseStrings() {
+		Stream.of("foo", "bar", " ").filter(Predicate.not(String::isBlank)).map(s -> s.toUpperCase()).toList()
+				.forEach(System.out::println); // use method reference directly
+
+		Stream.of("foo", "bar", " ").filter(s -> !s.isBlank()).map(s -> s.toUpperCase()).toList()
+				.forEach(System.out::println); // use lambda expression
 
 	}
 
