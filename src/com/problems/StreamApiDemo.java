@@ -199,6 +199,7 @@ public class StreamApiDemo {
 		generateFibonacciSeq();
 		changeCaseStrings();
 		streamIteratorDemo();
+		randomPassword();
 	}
 
 	private static void intstreamAndComparator() {
@@ -586,7 +587,7 @@ public class StreamApiDemo {
 		List<String> agentNames = agents.stream()
 				.collect(Collectors.mapping((eachObj) -> eachObj.getAgtName(), Collectors.toUnmodifiableList()));
 
-		List<String> agentNames2 = agents.stream().map(Agent::getAgtName).toList();
+		List<String> agentNames2 = agents.stream().map(Agent::getAgtName).collect(Collectors.toList());
 
 		// show the lists to check if they are same
 
@@ -674,10 +675,13 @@ public class StreamApiDemo {
 		// Use LinkedHashMap to maintain the order
 
 		List<String> qList = queryParamsMap.entrySet().stream().map(ep -> ep.getKey() + "=" + ep.getValue()).toList();
+
 		String queryParams = queryParamsMap.entrySet().stream().map(ep -> ep.getKey() + "=" + ep.getValue())
 				.collect(Collectors.joining("&"));
+
 		String queryParams2 = queryParamsMap.entrySet().stream().map(ep -> ep.getKey() + "=" + ep.getValue())
 				.collect(Collectors.collectingAndThen(Collectors.joining("&"), s -> s.trim()));
+
 		System.out.println("queryParams: " + queryParams2);
 		System.out.println("Request URL: " + stringBuffer + "?" + queryParams2);
 
@@ -754,6 +758,45 @@ public class StreamApiDemo {
 
 	}
 
+	public static void randomPassword() {
+
+		// seed string
+		// randomNumber * length of seedstring --> index
+		// seed[index] --> character
+		// passwrd+=character
+		// pwd lenght 8
+
+		final String seed = "QWERTYUIOPASDFGHJKLZXCVBNM@#$%&?";
+		Random random = new Random();
+		int[] ar = new int[8];
+		Arrays.fill(ar, 0);
+
+		List<Integer> nums = new ArrayList<>();
+
+		for (int i = 0; i < ar.length; i++) {
+			nums.add(ar[i]);
+		}
+
+		Function<Integer, Character> randomChar = new Function<Integer, Character>() {
+
+			@Override
+			public Character apply(Integer eachIt) {
+
+				return seed.charAt((random.nextInt(seed.length() - 1)) + eachIt);
+			}
+		};
+
+		randomChar.apply(7);
+
+		List<Character> randomPwdChars = nums.stream()
+				.map((eachIt) -> seed.charAt((random.nextInt(seed.length() - 1)) + eachIt))
+				.collect(Collectors.toList());
+
+		String pwd = randomPwdChars.stream().map(eachChar -> String.valueOf(eachChar)).collect(Collectors.joining());
+
+		System.out.println("My Random Password: " + pwd);
+	}
+
 	// lower to upper case
 	public static void changeCaseStrings() {
 		Stream.of("foo", "bar", " ").filter(Predicate.not(String::isBlank)).map(s -> s.toUpperCase()).toList()
@@ -779,4 +822,8 @@ public class StreamApiDemo {
 		stream.forEach(System.out::println);
 
 	}
+
+	// TODO find the sum of even fibonacci numbers using stream
+	// TODO check if a number is fibonacci number
+
 }
