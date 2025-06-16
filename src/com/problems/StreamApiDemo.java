@@ -795,6 +795,13 @@ public class StreamApiDemo {
 		String pwd = randomPwdChars.stream().map(eachChar -> String.valueOf(eachChar)).collect(Collectors.joining());
 
 		System.out.println("My Random Password: " + pwd);
+
+		IntSupplier asciiSupplier = () -> seed.charAt((random.nextInt(seed.length() - 1)));
+		// Generate random password using IntStream
+		String pwd2 = IntStream.generate(() -> seed.charAt((random.nextInt(seed.length() - 1))))
+				.mapToObj(eachAscii -> String.valueOf((char) eachAscii)).limit(8).collect(Collectors.joining());
+
+		System.out.println("pwd2: " + pwd2);
 	}
 
 	// lower to upper case
