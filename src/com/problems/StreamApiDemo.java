@@ -26,6 +26,7 @@ import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -193,13 +194,17 @@ public class StreamApiDemo {
 		// intstreamAndComparator();
 		// checkAnagram();
 		// findMissingElementInArray();
-		tokenizeString();
-		makeRequestURL();
-		stringTask();
-		generateFibonacciSeq();
-		changeCaseStrings();
-		streamIteratorDemo();
-		randomPassword();
+		// tokenizeString();
+		// makeRequestURL();
+		// stringTask();
+		// generateFibonacciSeq();
+		// changeCaseStrings();
+		// streamIteratorDemo();
+		// randomPassword();
+		// findLenOfLongestString();
+		countTotalNumberOfDistinctWords();
+		findSumOfSquaresOfEven();
+		partionPrimeNonPrime();
 	}
 
 	private static void intstreamAndComparator() {
@@ -777,16 +782,16 @@ public class StreamApiDemo {
 			nums.add(ar[i]);
 		}
 
-		Function<Integer, Character> randomChar = new Function<Integer, Character>() {
+		/*
+		 * Function<Integer, Character> randomChar = new Function<Integer, Character>()
+		 * {
+		 * 
+		 * @Override public Character apply(Integer eachIt) {
+		 * 
+		 * return seed.charAt((random.nextInt(seed.length() - 1)) + eachIt); } };
+		 */
 
-			@Override
-			public Character apply(Integer eachIt) {
-
-				return seed.charAt((random.nextInt(seed.length() - 1)) + eachIt);
-			}
-		};
-
-		randomChar.apply(7);
+		// randomChar.apply(7);
 
 		List<Character> randomPwdChars = nums.stream()
 				.map((eachIt) -> seed.charAt((random.nextInt(seed.length() - 1)) + eachIt))
@@ -833,4 +838,121 @@ public class StreamApiDemo {
 	// TODO find the sum of even fibonacci numbers using stream
 	// TODO check if a number is fibonacci number
 
+	public static void findLenOfLongestString() {
+		List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David", "Eva");
+		// answer 7
+
+		int longLen = names.stream().reduce((a, b) -> a.length() > b.length() ? a : b).map(l -> l.length()).get();
+
+		System.out.println(longLen);
+
+		// Method 2 sort the list then get the last String
+		String maxLenString = names.stream().sorted().skip(names.size() - 2).findFirst().orElse(null);
+
+		System.out.println(maxLenString);
+
+		// Just an implementation of custom collector
+		Collector<String, List<String>, String> secondLastCollector = Collector.of(ArrayList::new, (list, item) -> {
+			list.add(item);
+			if (list.size() > 2)
+				list.remove(0); // Keep only last 2 elements
+		}, (left, right) -> {
+			left.addAll(right);
+			while (left.size() > 2)
+				left.remove(0);
+			return left;
+		}, list -> list.size() > 1 ? list.get(0) : null);
+
+		String secondLast = names.stream().sorted().collect(secondLastCollector);
+
+		System.out.println("name:" + secondLast);
+	}
+
+	/*
+	 * Stream pipeline which calculates the total number of distinct words in a
+	 * sentence
+	 * 
+	 */
+	public static void countTotalNumberOfDistinctWords() {
+		List<String> sentences = Arrays.asList(
+				"Java Stream API provides a fluent interface for processing sequences of elements.",
+				"It supports functional-style operations on streams of elements, such as map-reduce transformations.",
+				"In this exercise, you need to count the total number of words in all sentences.");
+		// flat the sentences
+		// get stream from the array of Strings extracted/splitted at words
+		// check if the word is not blank
+		// check distinct
+		// count
+
+		long numOfWords = sentences.stream().flatMap((eachSentence) -> Arrays.stream(eachSentence.split("\\W+")))
+				.map(String::toLowerCase).filter(eachWord -> !eachWord.isBlank()).distinct().count();
+
+		System.out.println("number of words in sentence: " + numOfWords);
+
+	}
+
+	/*
+	 * Stream api pipeline to find out the sum of the squares of even numbers
+	 */
+	public static void findSumOfSquaresOfEven() {
+		List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		// filter the even number
+		// map to square
+		// check for reduce
+		// use sum
+		int sumOfEven = numbers.stream().filter(eachNum -> (eachNum & 1) == 0)
+				.map(eachEvenNum -> eachEvenNum * eachEvenNum).reduce(0, (a, b) -> a + b);
+
+		System.out.println("Sum of even nums: " + sumOfEven);
+
+	}
+
+	/*
+	 * Debug a Stream
+	 */
+	public static void debugAStream() {
+		List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David", "Eva");
+		List<String> result = names.stream().peek(name -> System.out.println("Original: " + name))
+				.filter(name -> name.length() > 3).peek(name -> System.out.println("Filtered: " + name))
+				.map(String::toUpperCase).collect(Collectors.toList());
+
+	}
+
+	public static boolean isPrime(int n) {
+		if (n <= 1)
+			return false;
+		if (n <= 3)
+			return true;
+		if (n % 2 == 0 || n % 3 == 0)
+			return false;
+
+		for (int i = 5; i * i <= n; i += 6) {
+			if (n % i == 0 || n % (i + 2) == 0)
+				return false;
+		}
+		return true;
+	}
+
+	/*
+	 * Check prime number using Stream API
+	 */
+	public static boolean isPrimeStream(int n) {
+
+		return n > 1 && IntStream.rangeClosed(2, (int) Math.sqrt(n)).allMatch(i -> n % i != 0);
+	}
+
+	/*
+	 * Partition a list by prime and non-prime numer
+	 */
+	public static void partionPrimeNonPrime() {
+
+		Random random = new Random();
+		List<Integer> numbers = IntStream.generate(() -> random.nextInt(1, 10)).boxed().limit(10)
+				.collect(Collectors.toList());
+
+		Map<Boolean, List<Integer>> partitioned = numbers.stream()
+				.collect(Collectors.partitioningBy(StreamApiDemo::isPrime));
+
+		System.out.println(partitioned);
+	}
 }
