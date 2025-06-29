@@ -40,12 +40,18 @@ func main(){
 	var rates float32 = 4.5 ;
 	fmt.Println(rates);
 
-	fmt.Println("Variables demo start")
+	fmt.Println("---------Variables demo start--------")
 	variables()
-	fmt.Println("Variables demo end")
+	fmt.Println("----------Variables demo end----------")
 
-	fmt.Println("String demo start")
+	fmt.Println("---------String demo start------------")
 	strings()
-	fmt.Println("String demo end")
+	fmt.Println("------------String demo end-----------")
+	fmt.Println("---------TypeConversion demo start------------")
+	typeconversion()
+	fmt.Println("------------TypeConversion demo end-----------")
+
+	//mymain() //uncomment for user input
+	parsing();
 	
 }
