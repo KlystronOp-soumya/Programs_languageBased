@@ -30,5 +30,7 @@ func variables()  {
 	_=lName
 	_=age2 //if not assigning to the blank identifier it will show the above message
 
-
+	//using constant variable
+	const email string ="go.lang@google.com" ;
+	fmt.Println("Constant email:" , email) ;
 }
