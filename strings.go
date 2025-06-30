@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func strings() {
+func stringsDemo() {
 	//strings in go lang
 	//declare strings
     var firstName string = "John Doe" ;
