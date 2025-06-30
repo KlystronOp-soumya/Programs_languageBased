@@ -45,7 +45,7 @@ func main(){
 	fmt.Println("----------Variables demo end----------")
 
 	fmt.Println("---------String demo start------------")
-	strings()
+	stringsDemo()
 	fmt.Println("------------String demo end-----------")
 	fmt.Println("---------TypeConversion demo start------------")
 	typeconversion()
@@ -53,5 +53,6 @@ func main(){
 
 	//mymain() //uncomment for user input
 	parsing();
-	
+	makedecesion();
+	loopDemo() ;
 }
