@@ -55,4 +55,5 @@ func main(){
 	parsing();
 	makedecesion();
 	loopDemo() ;
+	funcdemo();
 }
