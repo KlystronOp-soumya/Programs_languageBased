@@ -34,10 +34,16 @@ void show_point_double_pointer(Point** p)
     printf("Double pointer-(x,y) : (%f,%f)\n", ptr.x, ptr.y);
 }
 
-void show_array_poninters(Point **ptArr){
-    int len = sizeof(*ptArr)/sizeof(Point);
-    printf("Size of the array is: %d", len);
-    printf("Disp Array of pointers") ;
+void show_array_pointers(Point **ptArr){
+  
+    for (int i = 0; i < 2; i++)
+    {
+        /* code */
+        printf("Point %d: x = %f, y = %f\n", i, ptArr[i]->x , ptArr[i]->y);
+        printf("Point %d: x = %f, y = %f\n", i, (*(ptArr + i))->x, (*(ptArr + i))->y);
+        printf("Point %d: x = %f, y = %f\n", i, (*( *(ptArr + i) )).x, (*( *(ptArr + i) )).y);
+    }
+    
 }
 void show_array_of_points(Point** ptrArr, int size) {
 
@@ -78,7 +84,11 @@ int main(int argc, char* argv[])
     Point *ptrPtArr[2] ;
     ptrPtArr[0] = &p1 ;
     ptrPtArr[1] = p2 ;//p2 already holds an address as this is pointer variable
-    show_array_poninters(ptrPtArr) ;
+    /*
+        while we pass an array it goes as pointer
+        while we are passing an array of pointers it is going &(*arr) so Point **
+    */
+    show_array_pointers(ptrPtArr) ; 
     //define an pointer to an array
     Point points[2] ;
     points[0]=p1 ;
