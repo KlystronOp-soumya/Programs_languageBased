@@ -57,4 +57,5 @@ func main(){
 	//loopDemo() ;
 	funcdemo();
 	structdemo() ;
+	mapsdemo();
 }
