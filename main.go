@@ -54,6 +54,7 @@ func main(){
 	//mymain() //uncomment for user input
 	parsing();
 	makedecesion();
-	loopDemo() ;
+	//loopDemo() ;
 	funcdemo();
+	structdemo() ;
 }
