@@ -48,15 +48,15 @@ func (p *Point) move(deltax,deltay,deltaz float32)  {
 	
 	
 }
-/*
+
 func (p1 Point) Equal(p2 Point) (bool)  { //overrides the method in cmp
 	
-	if p1.x == p2.x && p1.y == p2.y && p1.z == p2.z{
+	if p1.X == p2.X && p1.Y == p2.Y && p1.Z == p2.Z{
 		return  true ;
 	}
 	return false
 
-}*/
+}
 
 func structdemo() {
 
@@ -103,6 +103,7 @@ func structdemo() {
 
 	//Reason for capitalize: in Go to export a method/struct the name has to be in Caps
 
+	//comment out the above method Equal (overridden) and the output will be false
 	fmt.Println("comapring the points: ", cmp.Equal(pt10 ,pt11));//false
 	
  
