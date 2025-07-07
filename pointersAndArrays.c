@@ -99,9 +99,9 @@ void print_contiguos_2d_array(int *arr ,int rows , int cols){
  * @note This function signature requires 'cols' to be a compile-time constant if used directly
  * with `int arr[][COLS]`. For dynamic arrays, you cast the `int*` to `int (*)[cols]`.
  */
-#include <stdio.h>
 
-void print_arr_as_pointers_to_arr(int (*arr)[4], int rows, int cols) {
+
+void print_arr_as_pointers_to_arr( int rows, int cols , int (*arr)[cols]) {
     printf("Array elements (using pointers to an array):\n");
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
