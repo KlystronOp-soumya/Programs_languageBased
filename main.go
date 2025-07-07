@@ -56,6 +56,7 @@ func main(){
 	makedecesion();
 	//loopDemo() ;
 	funcdemo();
+	funcAdvance();
 	structdemo() ;
 	mapsdemo();
 }
