@@ -60,4 +60,5 @@ func main() {
 	//structdemo()
 	//mapsdemo()
 	interfaces()
+	goroutinedemo()
 }
