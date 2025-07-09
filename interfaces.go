@@ -6,9 +6,9 @@ import (
 )
 
 type Person struct {
-	firstName string
-	lastName  string
-	age       int
+	FirstName string
+	LastName  string
+	Age       int
 }
 
 type Circle struct {
@@ -69,6 +69,12 @@ func doSomething(val interface{}) {
 	fmt.Println(val)
 }
 
+// Override the Stringer string method
+func (person Person) String() string {
+
+	return fmt.Sprintf("Person[FirstName=%v , LastName=%v , Age= %d]", person.FirstName, person.LastName, person.Age)
+}
+
 func interfaces() {
 
 	s := DigitsString("123456789")
@@ -88,4 +94,12 @@ func interfaces() {
 	doSomething(1)
 	doSomething(3.5)
 	doSomething(c1)
+
+	//create Person
+	var p Person = Person{
+		FirstName: "John",
+		LastName:  "Doe",
+		Age:       27,
+	}
+	doSomething(p)
 }
