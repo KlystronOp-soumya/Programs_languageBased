@@ -5,6 +5,12 @@ import (
 	"math"
 )
 
+type Person struct {
+	firstName string
+	lastName  string
+	age       int
+}
+
 type Circle struct {
 	radius float64
 	name   string
@@ -57,6 +63,12 @@ func (c Circle) Circumference() float64 {
 
 	return 2 * math.Pi * c.radius
 }
+
+// generic with interface
+func doSomething(val interface{}) {
+	fmt.Println(val)
+}
+
 func interfaces() {
 
 	s := DigitsString("123456789")
@@ -73,4 +85,7 @@ func interfaces() {
 	fmt.Println("Area of the circle: ", c1.Area())
 	fmt.Println("Circumference of the circle: ", c1.Circumference())
 	fmt.Println("Aread of the square:", s1.Area())
+	doSomething(1)
+	doSomething(3.5)
+	doSomething(c1)
 }
