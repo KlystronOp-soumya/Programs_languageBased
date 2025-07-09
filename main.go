@@ -52,12 +52,12 @@ func main() {
 	fmt.Println("------------TypeConversion demo end-----------")
 
 	//mymain() //uncomment for user input
-	parsing()
-	makedecesion()
+	//parsing()
+	//makedecesion()
 	//loopDemo() ;
-	funcdemo()
-	funcAdvance()
-	structdemo()
-	mapsdemo()
+	//funcdemo()
+	//funcAdvance()
+	//structdemo()
+	//mapsdemo()
 	interfaces()
 }
