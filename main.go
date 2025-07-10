@@ -50,15 +50,20 @@ func main() {
 	fmt.Println("---------TypeConversion demo start------------")
 	typeconversion()
 	fmt.Println("------------TypeConversion demo end-----------")
-
+	//var dp [5]int
 	//mymain() //uncomment for user input
 	//parsing()
 	//makedecesion()
 	//loopDemo() ;
 	//funcdemo()
+	//fibonacci_dp(5, dp)
 	//funcAdvance()
 	//structdemo()
 	//mapsdemo()
-	interfaces()
-	goroutinedemo()
+	//interfaces()
+	//goroutinedemo()
+	//sharedresources()
+	//sharedresoucesAtomic()
+	//synchronize()
+
 }
