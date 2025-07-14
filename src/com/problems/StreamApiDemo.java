@@ -191,7 +191,7 @@ public class StreamApiDemo {
 
 		// getIntStreamFromList();
 		// showNthRecordInMap();
-		// intstreamAndComparator();
+		intstreamAndComparator();
 		// checkAnagram();
 		// findMissingElementInArray();
 		// tokenizeString();
@@ -202,9 +202,9 @@ public class StreamApiDemo {
 		// streamIteratorDemo();
 		// randomPassword();
 		// findLenOfLongestString();
-		countTotalNumberOfDistinctWords();
-		findSumOfSquaresOfEven();
-		partionPrimeNonPrime();
+		// countTotalNumberOfDistinctWords();
+		// findSumOfSquaresOfEven();
+		// partionPrimeNonPrime();
 	}
 
 	private static void intstreamAndComparator() {
@@ -284,11 +284,37 @@ public class StreamApiDemo {
 		List<Agent> agents = deptAgentMap.values().stream().flatMap(l -> l.stream()).toList();
 		System.out.println(agents);
 
+		// TODO Eldest employee from an agent list -- reduction
+		Agent eldestEmployee = agents.stream().reduce((a1, a2) -> a1.getExperience() > a2.getExperience() ? a1 : a2)
+				.get();
+		System.out.println("Eldest employee:[reduction] " + eldestEmployee);
+
+		Agent eldestEmployee2 = agents.stream().sorted(Comparator.comparing(Agent::getExperience).reversed()).limit(1)
+				.findFirst().get();
+		System.out.println("Eldest employee:[sorting] " + eldestEmployee2);
+
+		Agent eldestEmployee3 = agents.stream().collect(Collectors.maxBy(Comparator.comparing(Agent::getExperience)))
+				.get();
+		System.out.println("Eldest employee:[Collecting] " + eldestEmployee3);
+
+		// TODO youngest employee from an agent list
+		Agent yougestEmployee = agents.stream().reduce((a1, a2) -> a1.getExperience() < a2.getExperience() ? a1 : a2)
+				.get();
+		System.out.println("Yougest employee: " + yougestEmployee);
 		// create a map grouping by the depts
 		Map<Object, List<Agent>> deptAgentMap2 = agents.stream().collect(Collectors
 				.groupingBy((agt) -> agt.getAgtDepartment(), Collectors.mapping((Agent a) -> a, Collectors.toList())));
 
-		System.out.println(deptAgentMap2);
+		Map<Object, List<Agent>> deptAgentMap4 = agents.stream()
+				.collect(Collectors.groupingBy(Agent::getAgtDepartment, Collectors.toList()));
+
+		// show the agent names present in each Department -- practice
+		Map<Object, List<String>> deptAgentNameMap2 = agents.stream().collect(Collectors.groupingBy(
+				(agent) -> agent.getAgtDepartment(), Collectors.mapping(Agent::getAgtName, Collectors.toList())));
+
+		System.out.println("Agents group by Dept: " + deptAgentMap4);
+		System.out.println("Agent Names group by Dept: " + deptAgentNameMap2);
+
 		// create a map grouping by the dept with Agent name only
 		Map<Object, List<String>> deptAgentNameMap = agents.stream().collect(Collectors.groupingBy(
 				(agt) -> agt.getAgtDepartment(), Collectors.mapping(Agent::getAgtName, Collectors.toList())));
