@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"fordummies/myutils"
 )
 
 /*
@@ -65,5 +66,8 @@ func main() {
 	//sharedresources()
 	//sharedresoucesAtomic()
 	//synchronize()
+	//pubsub()
+	pubsubChannel()
 
+	fmt.Println("Random: ", myutils.GetRandomNum())
 }
