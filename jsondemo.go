@@ -5,7 +5,26 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 )
+
+type Name struct {
+	FirstName string
+	LastName  string
+}
+
+type Address struct {
+	Line1 string
+	Line2 string
+	Line3 string
+}
+
+type Customer struct {
+	Name    Name
+	Email   string
+	Address Address
+	DOB     time.Time
+}
 
 type People struct {
 	FirstName string
@@ -23,6 +42,51 @@ type Rates struct {
 
 func mapUnstrucutredData() {
 
+	var result map[string]interface{}
+	jsonString := `{
+		"success" : true ,
+		"timestamp" " 1588779306 ,
+		"base" " "EUR" ,
+		"date" : "2020-05-06" ,
+		"rates" : {
+			"AUD" : 1.683349 ,
+			"CAD" : 1.528643 ,
+			"GBP" : 0.874757 ,
+			"SGD" : 1.534513 ,
+			"USD" : 1.080054
+		}
+	}`
+
+	json.Unmarshal([]byte(jsonString), &result)
+	fmt.Println(result["success"])
+	rates := result["rates"]
+	fmt.Println(rates)
+	currencies := rates.(map[string]interface{}) // asserts
+	fmt.Println(currencies["USD"])
+
+}
+
+func encodeJson() {
+
+	layoutISO := "2006-01-02"
+	dob, _ := time.Parse(layoutISO, "2010-01-08")
+
+	john := Customer{
+		Name:  Name{FirstName: "John", LastName: "Doe"},
+		Email: "johndoe.dev.@abc.com",
+		Address: Address{
+			Line1: "The White House",
+			Line2: "1600 Pennsylvania Avenue Nw",
+			Line3: "Washington, DC 20500",
+		},
+		DOB: dob,
+	}
+	johnJson, err := json.MarshalIndent(john, "", "    ")
+	if err == nil {
+		fmt.Println(string(johnJson))
+	} else {
+		fmt.Println(err)
+	}
 }
 
 func mapCustomFields() {
