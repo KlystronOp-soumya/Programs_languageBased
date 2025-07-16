@@ -5,9 +5,116 @@
 
 #include <format>
 using namespace std;
-#define END_LINE '\n'
+constexpr char END_LINE {'\n'} ;
 #define NAME "John"
 
+//A bit mask is a predefined set of bits that is used to select which specific bits will be modified by subsequent operations.
+void bitmask(){
+
+}
+
+void bitWiseBitset(){
+    //Bit-shifting in C++ is endian-agnostic. Left-shift is always towards the most significant bit, and right-shift towards the least significant bit.
+    bitset<4> b {0b1100 } ;
+    cout<< b << END_LINE ;
+    cout << (b >> 1) << END_LINE ; //shift 1 yields 0110
+    cout << (b<<1) << END_LINE ; //shift left by 1 yields 1000
+
+     std::bitset<4> b4{ 0b100 }; // b4 is 0100
+    std::bitset<8> b8{ 0b100 }; // b8 is 0000 0100
+
+    std::cout << "Initial values:\n";
+    std::cout << "Bits: " << b4 << ' ' << b8 << '\n';
+    std::cout << "Values: " << b4.to_ulong() << ' ' << b8.to_ulong() << "\n\n";
+
+    b4 = ~b4; // flip b4 to 1011
+    b8 = ~b8; // flip b8 to 1111 1011
+
+    std::cout << "After bitwise NOT:\n";
+    std::cout << "Bits: " << b4 << ' ' << b8 << '\n';
+    std::cout << "Values: " << b4.to_ulong() << ' ' << b8.to_ulong() << '\n'; //converts to long
+
+
+}
+
+void bitsets(){
+
+    bitset<8> bits { 0b000'0101 } ;
+    bits.set(3) ; //set bit position 3 to 1
+    bits.flip(4) ; // toggle the bit at position 4 from right idx =1 
+    bits.reset(4) ; //sets back to 0
+
+    cout << "All the bits" << bits << END_LINE ;
+    cout << "Bit has 3 value" << bits.test(3) << END_LINE ;
+    cout << "Bit 4 has value" << bits.test(4) << END_LINE ;
+
+    //better use enums
+    [[maybe_unused]] constexpr int  isHungry   { 0 };
+    [[maybe_unused]] constexpr int  isSad      { 1 };
+    [[maybe_unused]] constexpr int  isMad      { 2 };
+    [[maybe_unused]] constexpr int  isHappy    { 3 };
+    [[maybe_unused]] constexpr int  isLaughing { 4 };
+    [[maybe_unused]] constexpr int  isAsleep   { 5 };
+    [[maybe_unused]] constexpr int  isDead     { 6 };
+    [[maybe_unused]] constexpr int  isCrying   { 7 };
+
+    std::bitset<8> me{ 0b0000'0101 }; // we need 8 bits, start with bit pattern 0000 0101
+    me.set(isHappy);      // set bit position 3 to 1 (now we have 0000 1101)
+    me.flip(isLaughing);  // flip bit 4 (now we have 0001 1101)
+    me.reset(isLaughing); // set bit 4 back to 0 (now we have 0000 1101)
+
+    std::cout << "All the bits: " << me << '\n';
+    std::cout << "I am happy: " << me.test(isHappy) << '\n';
+    std::cout << "I am laughing: " << me.test(isLaughing) << '\n';
+
+    //Querying bitset
+    std::cout << bits.size() << " bits are in the bitset\n";
+    std::cout << bits.count() << " bits are set to true\n";
+
+    std::cout << std::boolalpha;
+    std::cout << "All bits are true: " << bits.all() << '\n';
+    std::cout << "Some bits are true: " << bits.any() << '\n';
+    std::cout << "No bits are true: " << bits.none() << '\n';
+}
+void printStr(string_view str){
+    cout<< str << END_LINE ;
+    //get a mutable string
+    string st {str} ; //ok
+    //string st1 = str ; //not ok
+    string st2 ;
+    st2 = static_cast<string> (str) ; //ok
+    reverse(st.begin() , st.end()) ;
+}
+
+void stringView(){
+    std::string str {"Hello World"} ; // is an expensive operation
+    // any function call with this str maintains 2 copies of str better use string_view that only passes a read only single copy
+    printStr(str) ;
+
+
+}
+
+void stringView(){
+
+     using namespace std::string_literals;      // access the s suffix
+    using namespace std::string_view_literals; // access the sv suffix
+
+    std::cout << "foo\n";   // no suffix is a C-style string literal
+    std::cout << "goo\n"s;  // s suffix is a std::string literal
+    std::cout << "moo\n"sv; // sv suffix is a std::string_view literal
+
+    std::string name { "Alex" };
+    std::string_view sv { name }; // sv is now viewing name
+    std::cout << sv << '\n'; // prints Alex
+
+    sv = "John"; // sv is now viewing "John" (does not change name)
+    std::cout << sv << '\n'; // prints John
+
+    std::cout << name << '\n'; // prints Alex
+
+    constexpr std::string_view s{ "Hello, world!" }; // s is a string symbolic constant
+    std::cout << s << '\n'; // s will be replaced with "Hello, world!" at compile-time 
+}
 void strings()
 {
 
