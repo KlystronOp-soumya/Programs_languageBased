@@ -7,6 +7,10 @@ public class SinglyLinkedListInnerADT<T> {
 
 	private SinglyNode<T> head;
 
+	public SinglyLinkedListInnerADT() {
+		head = null;
+	}
+
 	/*
 	 * Creates an empty list
 	 */
@@ -15,9 +19,53 @@ public class SinglyLinkedListInnerADT<T> {
 		return head;
 	}
 
-	public class SinglyNode<T> {
+	/*
+	 * Method add a node in front of a list
+	 * 
+	 * @param T any object
+	 * 
+	 * @returns void
+	 */
+	public void addBeg(T data) {
+
+		if (this.head != null) {
+			SinglyNode<T> currNode = new SinglyNode<>(data);
+			currNode.nextNodeObject_address = this.head;
+			this.head = currNode;
+		} else {
+			// create a new node as the first element
+			this.head = new SinglyNode<>(data);
+
+		}
+
+	}
+
+	public void appned(T data) {
+		SinglyNode<T> temp;
+		SinglyNode<T> currNode = null;
+
+		if (this.head == null) {
+			// this is the first element in the list
+			this.head = new SinglyNode<T>(data);
+			return;
+		} else {
+			temp = this.head;
+			while (temp.nextNodeObject_address != null) {
+				temp = temp.nextNodeObject_address;
+			}
+			currNode = new SinglyNode<T>(data);
+			temp.nextNodeObject_address = currNode;
+		}
+
+	}
+
+	/*
+	 * Inner class that represents the node of a SinglyLinkedList
+	 * 
+	 */
+	private class SinglyNode<T> {
 		protected T data;
-		protected SinglyNode nextNodeObject_address; // the object in Java is the address
+		protected SinglyNode<T> nextNodeObject_address; // the object in Java is the address
 
 		public SinglyNode() {
 			this.data = null;
