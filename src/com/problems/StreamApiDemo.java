@@ -1,5 +1,6 @@
 package com.problems;
 
+import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.filtering;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
@@ -191,7 +192,7 @@ public class StreamApiDemo {
 
 		// getIntStreamFromList();
 		// showNthRecordInMap();
-		intstreamAndComparator();
+		// intstreamAndComparator();
 		// checkAnagram();
 		// findMissingElementInArray();
 		// tokenizeString();
@@ -205,6 +206,48 @@ public class StreamApiDemo {
 		// countTotalNumberOfDistinctWords();
 		// findSumOfSquaresOfEven();
 		// partionPrimeNonPrime();
+		findCharInEachWord();
+	}
+
+	private static void findCharInEachWord() {
+
+		// get a string space separated
+		// find the distinct characters present in the string:
+		// eg: this is java -> t,h,i,s,j,a,v are the distinct characters
+
+		final String sentence = "The brown fox jump over the dog";
+		// get the words as list from the sentence
+		List<String> words = Arrays.asList(sentence.split(" ")); // splits the sentece at spaces
+
+		// print the words
+		words.forEach(System.out::println);
+
+		List<String[]> chars = words.stream().map(eachWord -> eachWord.split("")).distinct()
+				.collect(Collectors.toList()); // this is wrong
+
+		chars.forEach(System.out::println);
+
+		// correct
+		List<String> ch = words.stream().map(eachWord -> eachWord.split("")) // converts list of characters from each
+																				// word
+
+				.flatMap(Arrays::stream) // flattens each list and converts into a single stream
+
+				.distinct() // finds distinct characters present inside the stream
+				.collect(toList());
+
+		ch.forEach((c) -> System.out.print(c + " "));
+
+		// now find the count of characters
+		Map<String, Long> freq = words.stream().map(eachWord -> eachWord.split("")) // converts list of characters from
+																					// each
+				// word
+
+				.flatMap(Arrays::stream) // flattens each list and converts into a single stream
+
+				.collect(groupingBy(Function.identity(), counting())); // groupby each character and count as downstream
+
+		freq.entrySet().stream().forEach(pair -> System.out.println(pair.getKey() + ":" + pair.getValue()));
 	}
 
 	private static void intstreamAndComparator() {
