@@ -87,7 +87,7 @@ public class SinglyLinkedListInnerADT<T> {
 	 */
 	public int countNodes() {
 		int sizeOfLL = 0;
-		SinglyNode<T> temp = cloneHeadNode();
+		SinglyNode<T> temp = this.head;
 		if (this.head == null) {
 			return sizeOfLL;
 		} else {

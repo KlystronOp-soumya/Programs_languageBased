@@ -1,5 +1,12 @@
 package com.demo.dsa.linkedlist;
 
-public class SinglyLinkedListADT {
+class SinglyListNode<T> {
+	T data;
+	SinglyListNode next;
 
+}
+
+public class SinglyLinkedListADT<T> {
+
+	SinglyListNode<T> head;
 }

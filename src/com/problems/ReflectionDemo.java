@@ -1,6 +1,7 @@
 package com.problems;
 
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -82,6 +83,14 @@ public class ReflectionDemo {
 
 		List<String> fieldNames = Arrays.asList(fields).stream().map((eachField) -> eachField.getName()).toList();
 		fieldNames.stream().forEach(System.out::println);
+
+		EmployeePojo emp = new EmployeePojo();
+		emp.setName("John Doe");
+
+		Class<EmployeePojo> clz = (Class<EmployeePojo>) emp.getClass();
+		Annotation[] annotations = clz.getAnnotations();
+		System.out.println(annotations.length);
+
 	}
 
 }

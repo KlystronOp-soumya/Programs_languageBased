@@ -24,6 +24,9 @@ public class LinkedListDriver {
 			list.addBeg(i);
 		}
 		list.displayList();
+		System.out.println("Size:" + list.countNodes());
+		System.out.println("Size:" + list.countNodes());
+
 	}
 
 }
