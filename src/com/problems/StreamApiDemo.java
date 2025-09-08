@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.IntSummaryStatistics;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.PriorityQueue;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.UUID;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.IntSupplier;
@@ -206,7 +208,40 @@ public class StreamApiDemo {
 		// countTotalNumberOfDistinctWords();
 		// findSumOfSquaresOfEven();
 		// partionPrimeNonPrime();
-		findCharInEachWord();
+		// findCharInEachWord();
+		conditionalMap();
+	}
+
+	private static void conditionalMap() {
+		Map<String, Set<String>> map = new HashMap<>();
+		map.put("alpha", new HashSet<>(Set.of("x")));
+		map.put("beta", new HashSet<>(Set.of("y")));
+
+		List<String> keysToCheck = List.of("alpha", "beta", "gamma", "delta");
+
+		keysToCheck.forEach(key -> {
+			map.compute(key, (k, v) -> {
+				if (v == null) {
+					// Key is absent: create new Set with a random string
+					return new HashSet<>(Set.of(UUID.randomUUID().toString()));
+				} else {
+					// Key is present: add the key itself to the existing Set
+					v.add(k);
+					return v;
+				}
+			});
+		});
+
+		// Print the final map
+		map.forEach((k, v) -> System.out.println(k + " -> " + v));
+
+		Map<String, Integer> freqs = new HashMap<>();
+		freqs.put("a", 1);
+		freqs.put("b", 2);
+
+		final String str = "abc";
+		List<String> chars = Arrays.stream(str.split("")).collect(Collectors.toList());
+
 	}
 
 	private static void findCharInEachWord() {
