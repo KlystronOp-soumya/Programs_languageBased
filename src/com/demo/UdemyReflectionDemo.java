@@ -52,6 +52,10 @@ class Entity extends BaseEntity {
 		this.domain = domain;
 	}
 
+	private Entity() {
+		super("1009", "JavaDomain");
+	}
+
 	public Entity(String type, String domain, double index) {
 		super();
 		this.type = type;
@@ -161,6 +165,7 @@ public class UdemyReflectionDemo {
 
 			fieldInfo();
 			methodInfo();
+			constructorInfo();
 		} catch (ClassNotFoundException e) {
 
 			e.printStackTrace();
@@ -187,6 +192,35 @@ public class UdemyReflectionDemo {
 			e.printStackTrace();
 		}
 
+	}
+
+	private static void constructorInfo() throws ClassNotFoundException, NoSuchMethodException, SecurityException,
+			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Class<?> clazz = Class.forName("com.demo.Entity");
+		Constructor<?>[] constructors = clazz.getConstructors(); // will not return super class constructor
+		for (Constructor<?> constructor : constructors) {
+			System.out.println(constructor.getName() + " Param# " + constructor.getParameterCount());
+		}
+		for (Constructor<?> constructor : clazz.getDeclaredConstructors()) {
+			System.out.println(constructor + " Param# " + constructor.getParameterCount());
+		}
+
+		// get and invoke a constructor
+		@SuppressWarnings("unchecked")
+		Constructor<?> cons = clazz.getConstructor(String.class, String.class, double.class);// DOuble.class and
+																								// double.class is
+																								// different
+
+		Entity obj = (Entity) cons.newInstance("Object", "Dummy Domain", 3.0);
+		System.out.println("UdemyReflectionDemo.constructorInfo() :: object creation using reflection");
+		System.out.println(obj);
+
+		// change the access modifier of the private constructor
+		Constructor<?> privateConstructor = clazz.getDeclaredConstructor(null);
+		privateConstructor.setAccessible(true);
+		Entity objEntity = (Entity) privateConstructor.newInstance(null);
+		System.out.println("UdemyReflectionDemo.constructorInfo() :: object creation using reflection");
+		System.out.println(objEntity);
 	}
 
 	private static void fieldInfo()
