@@ -4,13 +4,14 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.UUID;
 
 class BaseEntity {
 	private int id;
 	private String uniqueKey;
 
 	public BaseEntity() {
-		this.id = 0;
+		this.id = Integer.parseInt(UUID.randomUUID().toString());
 		this.uniqueKey = "000";
 	}
 
