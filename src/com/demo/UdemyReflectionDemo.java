@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.UUID;
 
 class BaseEntity {
@@ -166,6 +167,7 @@ public class UdemyReflectionDemo {
 			fieldInfo();
 			methodInfo();
 			constructorInfo();
+			modifiersInfo();
 		} catch (ClassNotFoundException e) {
 
 			e.printStackTrace();
@@ -190,7 +192,28 @@ public class UdemyReflectionDemo {
 		} catch (NoSuchFieldException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
+	}
+
+	private static void modifiersInfo() throws Exception {
+		// Check the Modifier class. We need mask or perform and
+		Class<?> clazz = Class.forName("com.demo.Entity");
+		// get the constructor of a specific type
+		Constructor<? super BaseEntity> constructor = (Constructor<? super BaseEntity>) clazz
+				.getConstructor(String.class, String.class, double.class);
+
+		// get the instance
+		Entity entity = (Entity) constructor.newInstance("1111", "Root", 4.0);
+		System.out.println("UdemyReflectionDemo.modifiersInfo() :: modifiers");
+		int modifier = clazz.getModifiers();
+		System.out.println("In int: " + (modifier & Modifier.PUBLIC) + " is public " + Modifier.isPublic(modifier)
+				+ " type: " + Modifier.toString(modifier));
+		int constructorModifier = constructor.getModifiers() & Modifier.PUBLIC;
+		System.out.println("In int: " + constructorModifier + " type:" + Modifier.toString(constructorModifier));
 
 	}
 
