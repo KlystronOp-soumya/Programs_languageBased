@@ -7,24 +7,24 @@ import java.lang.reflect.Method;
 import java.util.UUID;
 
 class BaseEntity {
-	private int id;
+	private String id;
 	private String uniqueKey;
 
 	public BaseEntity() {
-		this.id = Integer.parseInt(UUID.randomUUID().toString());
+		this.id = UUID.randomUUID().toString();
 		this.uniqueKey = "000";
 	}
 
-	public BaseEntity(final int id, final String uniqueKey) {
+	public BaseEntity(final String id, final String uniqueKey) {
 		this.id = id;
 		this.uniqueKey = uniqueKey;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -59,7 +59,7 @@ class Entity extends BaseEntity {
 		this.index = index;
 	}
 
-	public Entity(int id, String key, String type, String domain, double index) {
+	public Entity(String id, String key, String type, String domain, double index) {
 		super(id, key);
 		this.type = type;
 		this.domain = domain;
@@ -67,9 +67,19 @@ class Entity extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
+	private void checkId() {
+		final String currentId = this.getId();
+		String[] parts = currentId.split("-");
+		for (String eachPart : parts) {
+			System.out.println(eachPart);
+		}
+
+	}
+
 	@Override
 	public String toString() {
-		return "Entity [type=" + type + ", domain=" + domain + ", index=" + index + "]";
+
+		return "Entity [id=" + this.getId() + ",type=" + type + ", domain=" + domain + ", index=" + index + "]";
 	}
 
 }
