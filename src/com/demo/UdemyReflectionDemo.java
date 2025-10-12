@@ -160,6 +160,7 @@ public class UdemyReflectionDemo {
 			// Arrays.stream(interfaces).forEach(System.out::println);
 
 			fieldInfo();
+			methodInfo();
 		} catch (ClassNotFoundException e) {
 
 			e.printStackTrace();
@@ -218,7 +219,29 @@ public class UdemyReflectionDemo {
 
 	}
 
-	private static void methodInfo() {
+	private static void methodInfo() throws NoSuchMethodException, SecurityException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException {
+		Entity entity = new Entity("Object", "dummy", 2.0);
+		Class<?> clazz = entity.getClass();
+		Method[] methods = clazz.getMethods();// shows public methods of this class and the super class
+		Method[] decMethods = clazz.getDeclaredMethods();// shows public and the private method of this class
+		for (Method method : methods) {
+			System.out.println("Method: " + method + " modifer:" + method.getModifiers() + " return type: "
+					+ method.getReturnType().getName());
+		}
+		for (Method method : decMethods) {
+			System.out.println("Declared Method: " + method);
+		}
+
+		// lets make the private method invoke
+		Method method = clazz.getDeclaredMethod("checkId", null);
+		method.setAccessible(true);
+		System.out.println("UdemyReflectionDemo.methodInfo() :: invoking using reflection");
+		method.invoke(entity);
+
+		// get method invocation
+		Method method2 = clazz.getDeclaredMethod("getDomain", null);
+		System.out.println(method2.invoke(entity, null));
 
 	}
 
