@@ -209,7 +209,7 @@ public class StreamApiDemo {
 		// findSumOfSquaresOfEven();
 		// partionPrimeNonPrime();
 		// findCharInEachWord();
-		conditionalMap();
+		// conditionalMap();
 	}
 
 	private static void conditionalMap() {
