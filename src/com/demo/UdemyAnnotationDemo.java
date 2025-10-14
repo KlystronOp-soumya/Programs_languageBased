@@ -1,7 +1,15 @@
 package com.demo;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
 @MostUsed
 class Parent {
+
+	public Parent() {
+		super();
+	}
 
 	@MostUsed(value = "Python")
 	public void m1(String arg) {
@@ -41,5 +49,26 @@ public class UdemyAnnotationDemo extends Parent { // As the parent was annotated
 	public static void main(String[] args) {
 
 		GenericBox<String> box = new @NonEmpty @ReadOnly GenericBox<>("1");
+		try {
+			Class<?> clazz = Class.forName("com.demo.Parent");
+			Constructor<?> constructor = clazz.getConstructor(null);
+			Parent p = (Parent) constructor.newInstance(null);
+
+			Method[] methods = clazz.getDeclaredMethods();
+
+			for (Method method : methods) {
+
+				if (method.isAnnotationPresent(MostUsed.class)) {
+					// get the assigned value
+					Annotation annotation = method.getAnnotation(MostUsed.class);
+					System.out.println(((MostUsed) annotation).value());
+
+				}
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+
 }
