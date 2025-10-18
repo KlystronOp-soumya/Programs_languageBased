@@ -59,17 +59,19 @@ public class Hibernate<T> {
 		}
 
 		// to get the values generate a string of place holders
-		String insertSql = "INSERT INTO :tableName(:columns) VALUES(:values)".replaceAll(":tableName", this.table);
+		String insertSql = "INSERT INTO :tableName VALUES(:values)".replaceAll(":tableName", this.table);
 
-		String columnNames = columnNameTypeMap.entrySet().stream().map(e -> e.getKey().getName())
-				.collect(Collectors.joining(","));
+		/*
+		 * String columnNames = columnNameTypeMap.entrySet().stream().map(e ->
+		 * e.getKey().getName()) .collect(Collectors.joining(","));
+		 */
 		long nuOfCols = columnNameTypeMap.entrySet().stream().count();
 
 		String colValPlaceHolders = IntStream.range(0, (int) nuOfCols).mapToObj(e -> "?")
 				.collect(Collectors.joining(","));
 
 		System.out.println("Placeholders: " + colValPlaceHolders);
-		insertSql = insertSql.replaceAll(":columns", columnNames).replaceAll(":values", colValPlaceHolders);
+		insertSql = insertSql/* .replaceAll(":columns", columnNames) */.replaceAll(":values", colValPlaceHolders);
 		System.out.println(insertSql);
 
 	}
