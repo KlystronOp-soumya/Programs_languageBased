@@ -66,6 +66,10 @@ class EnumValidationUitls<T extends Enum<?>, S extends Collection<E>, E> {
 		this.enumValToCheck = enumValToCheck;
 	}
 
+	public record EnumMatcher<T extends Enum<?>>(T constant, Function<T, String> getter) {
+
+	}
+
 }
 
 public class EnumValidatioMain {
