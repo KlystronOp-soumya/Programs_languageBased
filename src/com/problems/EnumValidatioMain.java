@@ -45,9 +45,8 @@ class Order {
 
 }
 
-class FindValidOrders<T extends Enum<T>, L extends Collection<V>, V extends Object> {
+class FindValidOrders<T extends Enum<T>, L extends Collection<V>, V> {
 
-	@SuppressWarnings("unchecked")
 	public V findMatchedEntry(T enumConditionCheck, L sourceListWithEnums, Function<V, Enum<T>> keyExtractor) {
 
 		return sourceListWithEnums.stream().filter(e -> keyExtractor.apply(e) == enumConditionCheck).findFirst()
@@ -57,12 +56,12 @@ class FindValidOrders<T extends Enum<T>, L extends Collection<V>, V extends Obje
 
 }
 
-class EnumValidationUitls<T extends Object, E extends Enum<?>> {
+class EnumValidationUitls<T extends Enum<?>, S extends Collection<E>, E> {
 
-	private List<T> listToValidate;
-	private Enum<?> enumValToCheck;
+	private S listToValidate;
+	private T enumValToCheck;
 
-	public EnumValidationUitls(List<T> listToValidate, Enum<?> enumValToCheck) {
+	public EnumValidationUitls(S listToValidate, T enumValToCheck) {
 		this.listToValidate = listToValidate;
 		this.enumValToCheck = enumValToCheck;
 	}
@@ -72,12 +71,12 @@ class EnumValidationUitls<T extends Object, E extends Enum<?>> {
 public class EnumValidatioMain {
 
 	public static void main(String[] args) {
-		Order order1 = new Order(0, LocalDate.now(), LocalTime.now(), OrderStatus.DISPATCHED);
+		Order order1 = new Order(0, LocalDate.now(), LocalTime.now(), OrderStatus.PAYMENT_RECEIVED);
 		System.out.println("Order dispatchable:" + order1.getOrderStatus().shouldDispatch(order1));
 
 		FindValidOrders<OrderStatus, List<Order>, Order> validOrders = new FindValidOrders();
-		System.out.println(validOrders.findMatchedEntry(OrderStatus.PAYMENT_RECEIVED, List.of(order1),
-				(Order o) -> Order.orderStatus(o)));
+		System.out.println(
+				validOrders.findMatchedEntry(OrderStatus.PAYMENT_RECEIVED, List.of(order1), Order::orderStatus));
 
 	}
 
