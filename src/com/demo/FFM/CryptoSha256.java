@@ -9,6 +9,7 @@ import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandle;
 import java.nio.file.Path;
 
+//Command to build the dll: gcc -shared -o cryptooops.dll crypto.c
 public class CryptoSha256 {
 
 	private final MethodHandle sha256Fn;
