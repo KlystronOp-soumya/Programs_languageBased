@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" name="JavaDemosLoggerConfigXML">
+    <Properties>
+    	<Property name="diagnostic_pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t:%T] %highlight{%-5level}{FATAL=bright red, ERROR=red, WARN=yellow, INFO=green, DEBUG=magenta, TRACE=white} %logger{36} :: %msg%n</Property>
+    	<Property name="compact_pattern">%style{%d{HH:mm:ss}}{cyan} %highlight{%-5level}{FATAL=bright red, ERROR=red, WARN=yellow, INFO=green, DEBUG=magenta, TRACE=white} %style{%logger{1}}{blue}:%style{%L}{bright yellow} :: %style{%msg}{bright white}%n</Property>
+    <Property name="compact_diagnostic_pattern">%d{HH:mm:ss.SSS} [%t] %level %C.%M:%L - %msg%n</Property>
+    </Properties>
+    <!-- Console Appender -->
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout disableAnsi="false"
+                pattern="${diagnostic_pattern}"/>
+        </Console>
+    </Appenders>
+
+    <!-- Root Logger -->
+    <Loggers>
+        <Root level="ALL">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
