@@ -6,6 +6,7 @@ const myGreetHttpTrigger:HttpHandler = async (request: HttpRequest, context: Inv
     const client = df.getClient(context);
 
     const body: unknown = await request.text();
+    context.log(`body for orchestrator: ${body}`)
     const instanceId: string = await client.startNew("durableMyGreetOrchestrator", { input: body });//starts the orchestration
 
     context.log(`Started orchestration with ID = '${instanceId}'.`);
