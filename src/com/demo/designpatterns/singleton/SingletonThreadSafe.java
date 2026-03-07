@@ -1,4 +1,4 @@
-package com.demo.designpatterns;
+package com.demo.designpatterns.singleton;
 
 public class SingletonThreadSafe {
 
