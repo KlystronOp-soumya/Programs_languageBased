@@ -1,4 +1,4 @@
-package com.demo.designpatterns.composite;
+package com.demo.designpatterns.structural.composite;
 
 public class HddMemory extends Equipment {
 
