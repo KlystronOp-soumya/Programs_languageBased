@@ -1,37 +1,63 @@
-import { Calculator } from "../src/calculator/calculator";
-import { Logger } from "../src/logger/logger";
-import { TaxService } from "../src/tax/tax_service";
+import { when } from 'jest-when';
+import { Calculator } from '../src/calculator/calculator';
+import { Logger } from '../src/logger/logger';
+import { TaxService } from '../src/tax/tax_service';
 
-describe("test calculator", ()=>{
+describe('test calculator', () => {
+  beforeEach(() => console.log('About start--->'));
 
-    beforeEach(()=> console.log("About start--->"))
+  test('should log additon', () => {
+    const logger = { log: jest.fn() }; //object with the function
+    const taxService = { getTaxRate: jest.fn() }; //object with the function
 
-    test("should log additon", () =>{
+    const calc = new Calculator(logger as Logger, taxService as TaxService);
 
-        const logger = {log: jest.fn()}; //object with the function
-        const taxService = {getTaxRate: jest.fn()}; //object with the function
+    calc.add(2, 3);
 
-        const calc = new Calculator(logger as Logger, taxService as TaxService);
+    expect(logger.log).toHaveBeenCalledWith('Adding 2 + 3 = 5');
+  });
 
-        calc.add(2,3);
+  test('should inspect mock.calls', () => {
+    const logger = { log: jest.fn() };
+    const taxService = { getTaxRate: jest.fn() };
 
-        expect(logger.log).toHaveBeenCalledWith("Adding 2 + 3 = 5");
-    });
+    const calc = new Calculator(logger as any, taxService as any);
 
-    test("should inspect mock.calls", () =>{
+    calc.add(1, 1);
 
-        const logger = {log: jest.fn()};
-        const taxService = {getTaxRate: jest.fn()};
+    const calls = logger.log.mock.calls;
 
-        const calc = new Calculator(logger as any, taxService as any);
+    expect(calls[0][0]).toBe('Adding 1 + 1 = 2');
+  });
 
-        calc.add(1, 1);
+  test('should reject for invalid amount', async () => {
+    const logger = { log: jest.fn() };
+    const taxSrevice = { getTaxRate: jest.fn() };
 
-        const calls = logger.log.mock.calls;
+    when(taxSrevice.getTaxRate)
+      .calledWith()
+      .mockRejectedValue(new Error('IllegalArgument'));
 
-        expect(calls[0][0]).toBe("Adding 1 + 1 = 2");
-    });
+    const calculator = new Calculator(
+      logger as Logger,
+      taxSrevice as TaxService,
+    );
 
-    
+    await expect(calculator.calculateTotalWithTax(100)).rejects.toThrow(
+      'IllegalArgument',
+    );
+  });
 
+  test('should return different tax rates', async () => {
+    const logger = { log: jest.fn() };
+    const taxService = { getTaxRate: jest.fn() };
+
+    when(taxService.getTaxRate).calledWith().mockResolvedValue(0.2);
+
+    const calc = new Calculator(logger as any, taxService as any);
+
+    const result = await calc.calculateTotalWithTax(100);
+
+    expect(result).toBe(120);
+  });
 });

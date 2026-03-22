@@ -1,6 +1,6 @@
 {
   "env": {
-    "es2021": true,
+    "es2016": true,
     "node": true
   },
   "parser": "@typescript-eslint/parser",
@@ -11,6 +11,8 @@
     "prettier"
   ],
   "rules": {
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"],
+    "no-unused-vars": "warn"
   }
 }
