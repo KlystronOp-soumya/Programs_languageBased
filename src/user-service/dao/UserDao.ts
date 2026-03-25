@@ -1,6 +1,6 @@
 import User from '../model/user';
 
-export  class UserDao {
+export class UserDao {
   private users: Map<number, User>;
 
   constructor() {
@@ -16,7 +16,7 @@ export  class UserDao {
     return user;
   }
 
-  findById(id: number): User | null {
+  findById(id: number): User | unknown {
     return this.users.get(id) || null;
   }
 }
