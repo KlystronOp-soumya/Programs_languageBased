@@ -1,4 +1,4 @@
-package com.demo.designpatterns.builder;
+package com.demo.designpatterns.creational.builder;
 
 import java.time.Duration;
 

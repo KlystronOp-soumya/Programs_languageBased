@@ -1,4 +1,4 @@
-package com.demo.designpatterns.builder;
+package com.demo.designpatterns.creational.builder;
 
 public class ApartmentBuilder {
 
