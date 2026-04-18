@@ -1,6 +1,7 @@
 import { instance, mock, verify, when } from 'ts-mockito';
 import { UserService } from '../src/user-service/service/UserService';
 import { UserController } from '../src/user-service/controller/UserController';
+
 test('controller should return user', () => {
   const serviceMock = mock(UserService);
 
