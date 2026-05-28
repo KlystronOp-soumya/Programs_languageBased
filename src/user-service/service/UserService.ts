@@ -11,7 +11,7 @@ export class UserService {
   }
 
   getUser(id: number): User {
-    const user = this.userDao.findById(id);
+    const user = this.userDao.findById(id) as User;
 
     if (!user) {
       throw new Error('User not found');

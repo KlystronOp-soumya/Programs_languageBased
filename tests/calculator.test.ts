@@ -60,4 +60,35 @@ describe('test calculator', () => {
 
     expect(result).toBe(120);
   });
+
+  it('should spy on logger.log', () => {
+    const logger = new Logger();
+    const taxService = new TaxService();
+    const calc = new Calculator(logger, taxService);
+
+    const logSpy = jest.spyOn(logger, 'log');
+    const res = calc.multiply(2, 4);
+
+    logSpy.mockImplementation(() => {
+      console.log('Nothing');
+    });
+
+    expect(res).toBe(8);
+    expect(logSpy).toHaveBeenCalledTimes(1);
+    expect(logSpy).toHaveBeenCalledWith('Multiplying 2 + 4 = 8');
+
+    //reset is mandatory
+    logSpy.mockRestore();
+  });
+
+  it('should use mocked Logger and TaxService', () => {
+    const mockLogger = new Logger() as jest.Mocked<Logger>;
+    const mockTaxService = new TaxService() as jest.Mocked<TaxService>;
+
+    const calc = new Calculator(mockLogger, mockTaxService);
+
+    const result = calc.add(10, 20);
+
+    expect(result).toBe(30);
+  });
 });

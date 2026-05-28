@@ -13,6 +13,12 @@ export class Calculator {
     return result;
   }
 
+  multiply(a: number, b: number): number {
+    const result = a * b;
+    this.logger.log(`Multiplying ${a} + ${b} = ${result}`);
+    return result;
+  }
+
   async calculateTotalWithTax(amount: number): Promise<number> {
     if (amount < 0) {
       throw new Error('Invalid amount');
