@@ -1,0 +1,17 @@
+{
+  "version": 4,
+  "include": ["CMakePresets.json"],
+  "configurePresets": [
+    {
+      "name": "user",
+      "inherits": "default",
+      "environment": {
+        "VCPKG_ROOT": "C:\\MinGW\\tools\\vcpkg"
+      },
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      } 
+    }
+  ]
+}
