@@ -1,0 +1,81 @@
+# =========================
+# Compiler & Tools
+# =========================
+CC      := gcc
+AR      := ar
+CFLAGS  := -Wall -Wextra -Werror -std=c11 -O2 -Iinclude
+LDFLAGS :=
+
+# =========================
+# Directories
+# =========================
+SRC_DIRS := app lib
+BUILD_DIR := build
+OBJ_DIR := $(BUILD_DIR)/obj
+LIB_DIR := $(BUILD_DIR)/lib
+BIN_DIR := $(BUILD_DIR)/bin
+
+# =========================
+# Files
+# =========================
+LIB_NAME := mylib
+TARGET   := $(BIN_DIR)/myproject.exe
+
+LIB_SRCS := $(wildcard lib/*.c)
+APP_SRCS := $(wildcard app/*.c)
+
+LIB_OBJS := $(patsubst lib/%.c,$(OBJ_DIR)/lib/%.o,$(LIB_SRCS))
+APP_OBJS := $(patsubst app/%.c,$(OBJ_DIR)/app/%.o,$(APP_SRCS))
+
+STATIC_LIB := $(LIB_DIR)/lib$(LIB_NAME).a
+SHARED_LIB := $(LIB_DIR)/$(LIB_NAME).dll
+IMPORT_LIB := $(LIB_DIR)/lib$(LIB_NAME).dll.a
+
+# =========================
+# Default Target
+# =========================
+all: dirs $(STATIC_LIB) $(SHARED_LIB) $(TARGET)
+
+# =========================
+# Create directories
+# =========================
+dirs:
+	@mkdir -p $(OBJ_DIR)/lib $(OBJ_DIR)/app $(LIB_DIR) $(BIN_DIR) 2>nul || exit 0
+
+# =========================
+# Static Library (.a)
+# =========================
+$(STATIC_LIB): $(LIB_OBJS)
+	$(AR) rcs $@ $^
+
+# =========================
+# Shared Library (.dll)
+# =========================
+$(SHARED_LIB): $(LIB_OBJS)
+	$(CC) -shared -o $@ $^ -Wl,--out-implib,$(IMPORT_LIB)
+
+# =========================
+# Final Executable (Linking with STATIC LIB)
+# =========================
+$(TARGET): $(APP_OBJS) $(STATIC_LIB)
+	$(CC) $(APP_OBJS) -L$(LIB_DIR) -l$(LIB_NAME) -o $@
+
+# =========================
+# Compile Rules
+# =========================
+$(OBJ_DIR)/lib/%.o: lib/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/app/%.o: app/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# =========================
+# Clean
+# =========================
+clean:
+	del /Q /S build\* 2>nul || exit 0
+
+# =========================
+# Phony
+# =========================
+.PHONY: all clean dirs
