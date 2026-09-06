@@ -1,4 +1,4 @@
-package com.demo.designpatterns.singleton;
+package com.demo.designpatterns.creational.singleton;
 
 public class SingletonLazy {
 

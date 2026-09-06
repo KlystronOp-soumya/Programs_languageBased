@@ -38,10 +38,10 @@ public class TwoPointDistance {
 
 		Linker linker = Linker.nativeLinker();
 
-		SymbolLookup lookup = SymbolLookup.libraryLookup("D:\\native-libs\\two_point_distance.dll", Arena.global());
+		SymbolLookup lookup = SymbolLookup.libraryLookup("D:\\native-libs\\two_point_distance.dll", Arena.ofConfined());
 
 		MemorySegment symbol = lookup.find("calculate_distance").get();
-
+		// return type , int arg1, int arg2 -- in this case pointers
 		FunctionDescriptor fd = FunctionDescriptor.of(JAVA_DOUBLE, ADDRESS, ADDRESS);
 
 		distanceHandle = linker.downcallHandle(symbol, fd);

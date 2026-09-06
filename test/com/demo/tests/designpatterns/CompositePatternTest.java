@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import com.demo.designpatterns.composite.Composite;
-import com.demo.designpatterns.composite.Equipment;
-import com.demo.designpatterns.composite.HddMemory;
+import com.demo.designpatterns.structural.composite.Composite;
+import com.demo.designpatterns.structural.composite.Equipment;
+import com.demo.designpatterns.structural.composite.HddMemory;
 
 public class CompositePatternTest {
 

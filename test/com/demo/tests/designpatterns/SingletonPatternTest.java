@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.demo.designpatterns.singleton.SingletonEager;
-import com.demo.designpatterns.singleton.SingletonStaticBlock;
+import com.demo.designpatterns.creational.singleton.SingletonEager;
+import com.demo.designpatterns.creational.singleton.SingletonStaticBlock;
 
 class SingletonPatternTest {
 
@@ -14,8 +14,8 @@ class SingletonPatternTest {
 	@DisplayName("singletonEagerSameInstanceTest")
 	void testSingletonEagerInstance() {
 
-		com.demo.designpatterns.singleton.SingletonEager eagerInstance1 = SingletonEager.getEagerInstance();
-		com.demo.designpatterns.singleton.SingletonEager eagerInstance2 = SingletonEager.getEagerInstance();
+		com.demo.designpatterns.creational.singleton.SingletonEager eagerInstance1 = SingletonEager.getEagerInstance();
+		com.demo.designpatterns.creational.singleton.SingletonEager eagerInstance2 = SingletonEager.getEagerInstance();
 
 		assertEquals(eagerInstance1, eagerInstance2, "the instances are not same");
 

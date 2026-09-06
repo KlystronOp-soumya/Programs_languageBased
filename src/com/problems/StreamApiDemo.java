@@ -9,7 +9,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IntSummaryStatistics;
@@ -56,20 +59,32 @@ class ComparisonUtil {
 	}
 }
 
-enum Departments {
+enum Department {
 	// these are objects
 	ACCOUNTS("act"), FINANCE("fin"), STOCKS("stk"), TRADES("trd"), NETWORKING("mnet"), MARKETING("mkt"),
 	ITINFRA("iinf"), ITAPP("iapp"), ITNETWORKING("inet"), SALES("sls"), HR("mhr");
 
-	public String account_code;
+	private String account_code;
 
-	private Departments() {
+	private static final Set<Department> IT_DEPARTMENTS = EnumSet.of(ITINFRA, ITAPP, ITNETWORKING);
+
+	private Department() {
 
 	}
 
-	Departments(final String code) {
+	Department(final String code) {
 		this.account_code = code;
 	}
+
+	public String getAccount_code() {
+		return this.account_code;
+	}
+
+	public boolean isIT(Department department) {
+
+		return IT_DEPARTMENTS.contains(department);
+	}
+
 }
 
 @Data
@@ -82,7 +97,7 @@ class Agent implements Serializable, Comparable<Agent> {
 	private String agtId;
 	private String agtName;
 	private BigDecimal agtSalary;
-	private Departments agtDepartment;
+	private Department agtDepartment;
 	private double experience;
 	private char gender;
 	private int age;
@@ -109,7 +124,7 @@ class AgentDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String agentName;
-	private Departments department;
+	private Department department;
 
 }
 
@@ -210,6 +225,34 @@ public class StreamApiDemo {
 		// partionPrimeNonPrime();
 		// findCharInEachWord();
 		// conditionalMap();
+		getOfNullable();
+	}
+
+	private static void getOfNullable() {
+		// Shows different scenarios on Stream.ofNullable and Optional.ofNullable
+		List<Department> foundDepartments = null;
+
+		List<String> deptCodes = Stream.ofNullable(foundDepartments).flatMap(Collection::stream)
+				.map(Department::getAccount_code).toList();
+
+		// processes till the terminal operation and returns an empty list
+		System.out.println(deptCodes);
+
+		// processes an empty stream
+		Stream.ofNullable(foundDepartments).flatMap(Collection::stream).map(Department::getAccount_code)
+				.forEach(System.out::println);
+
+		// creates a blank map
+		Map<Department, String> departmentWithCodeMap = Stream.ofNullable(foundDepartments).flatMap(Collection::stream)
+				.collect(Collectors.toMap(Function.identity(), Department::getAccount_code));
+
+		System.out.println(departmentWithCodeMap);
+
+		// Using optional
+		Map<Department, String> departmentWithCodeMap2 = Optional.ofNullable(foundDepartments)
+				.map(list -> list.stream().collect(Collectors.toMap(Function.identity(), Department::getAccount_code)))
+				.orElse(Collections.emptyMap());
+
 	}
 
 	private static void conditionalMap() {
@@ -346,17 +389,17 @@ public class StreamApiDemo {
 		System.out.println(repeatedChars);
 
 		// create a map of Department vs Agents
-		Map<Departments, List<Agent>> deptAgentMap = new HashMap<Departments, List<Agent>>();
-		deptAgentMap.put(Departments.SALES,
-				List.of(new Agent("ID32", "John Michael", new BigDecimal(60000D), Departments.SALES, 2.5, 'M', 30),
-						new Agent("ID1", "John Doe", new BigDecimal("53000"), Departments.SALES, 1.5, 'M', 25),
-						new Agent("ID5", "Michael Lee", new BigDecimal("52000"), Departments.SALES, 0.3, 'M', 24),
-						new Agent("ID9", "William Green", new BigDecimal("53000"), Departments.SALES, 11, 'M', 36)));
+		Map<Department, List<Agent>> deptAgentMap = new HashMap<Department, List<Agent>>();
+		deptAgentMap.put(Department.SALES,
+				List.of(new Agent("ID32", "John Michael", new BigDecimal(60000D), Department.SALES, 2.5, 'M', 30),
+						new Agent("ID1", "John Doe", new BigDecimal("53000"), Department.SALES, 1.5, 'M', 25),
+						new Agent("ID5", "Michael Lee", new BigDecimal("52000"), Department.SALES, 0.3, 'M', 24),
+						new Agent("ID9", "William Green", new BigDecimal("53000"), Department.SALES, 11, 'M', 36)));
 
-		deptAgentMap.put(Departments.MARKETING, List.of(
-				new Agent("ID6", "Sophia Adams", new BigDecimal("62000"), Departments.MARKETING, 4.2, 'F', 27),
-				new Agent("ID2", "Alice Smith", new BigDecimal("60000"), Departments.MARKETING, 3.6, 'F', 29),
-				new Agent("ID10", "Emma Turner", new BigDecimal("61000"), Departments.MARKETING, 13.0, 'O', 39)));
+		deptAgentMap.put(Department.MARKETING, List.of(
+				new Agent("ID6", "Sophia Adams", new BigDecimal("62000"), Department.MARKETING, 4.2, 'F', 27),
+				new Agent("ID2", "Alice Smith", new BigDecimal("60000"), Department.MARKETING, 3.6, 'F', 29),
+				new Agent("ID10", "Emma Turner", new BigDecimal("61000"), Department.MARKETING, 13.0, 'O', 39)));
 
 		// get a flat map
 		List<Agent> agents = deptAgentMap.values().stream().flatMap(l -> l.stream()).toList();
@@ -400,7 +443,7 @@ public class StreamApiDemo {
 		System.out.println(deptAgentNameMap);
 
 		// now get the agent who draws maximum salary in each dept
-		Map<Departments, Optional<Agent>> maxedSalariedInDeptsOpt = deptAgentMap2.values().stream()
+		Map<Department, Optional<Agent>> maxedSalariedInDeptsOpt = deptAgentMap2.values().stream()
 				.flatMap(l -> l.stream()).collect(Collectors.groupingBy(Agent::getAgtDepartment,
 
 						Collectors.maxBy(Comparator.comparing(Agent::getAgtSalary))));
@@ -408,30 +451,30 @@ public class StreamApiDemo {
 		System.out.println(maxedSalariedInDeptsOpt);
 
 		// gets Agent names with Maximum salaries in each department
-		Map<Departments, String> maxedSalariedInDept = deptAgentMap2.values().stream().flatMap(l -> l.stream())
+		Map<Department, String> maxedSalariedInDept = deptAgentMap2.values().stream().flatMap(l -> l.stream())
 				.collect(Collectors.groupingBy(Agent::getAgtDepartment, Collectors.collectingAndThen(
 						Collectors.maxBy(Comparator.comparing(Agent::getAgtSalary)), (p) -> p.get().getAgtName())));
 
 		System.out.println(maxedSalariedInDept);
 
 		// gets the Agent details with Maximum salary in Each department
-		Map<Departments, Agent> maxedSalariedInDept2 = deptAgentMap2.values().stream().flatMap(l -> l.stream())
+		Map<Department, Agent> maxedSalariedInDept2 = deptAgentMap2.values().stream().flatMap(l -> l.stream())
 				.collect(Collectors.groupingBy(Agent::getAgtDepartment, Collectors.collectingAndThen(
 						Collectors.maxBy(Comparator.comparing(Agent::getAgtSalary)), (p) -> p.get())));
 
 		System.out.println(maxedSalariedInDept2);
 
 		// get the agent is each department whose salary is greater than 60k
-		Function<Agent, Departments> agentToDeptClassifier = (Agent a) -> a.getAgtDepartment();
+		Function<Agent, Department> agentToDeptClassifier = (Agent a) -> a.getAgtDepartment();
 		Predicate<Agent> salaryCheck = (Agent t) -> t.getAgtSalary().compareTo(new BigDecimal(60000D)) > 0;
-		Map<Departments, List<Agent>> higherSalariedInDeptMap = deptAgentMap2.values().stream().flatMap(l -> l.stream())
+		Map<Department, List<Agent>> higherSalariedInDeptMap = deptAgentMap2.values().stream().flatMap(l -> l.stream())
 				.collect(groupingBy(agentToDeptClassifier, filtering(salaryCheck, toList())));
 
 		System.out.println(higherSalariedInDeptMap);
 
 		// get the agent is each department whose salary is greater than 60k removing
 		// the blank sales team
-		Map<Departments, List<Agent>> higherSalariedInDeptMapNonBlank = deptAgentMap2.values().stream()
+		Map<Department, List<Agent>> higherSalariedInDeptMapNonBlank = deptAgentMap2.values().stream()
 				.flatMap(List::stream)
 				.collect(Collectors.groupingBy(agentToDeptClassifier,
 						Collectors.filtering(salaryCheck, Collectors.toList())))
@@ -442,17 +485,17 @@ public class StreamApiDemo {
 		// create a map of Agent name vs Dept
 		List<Agent> agents2 = getData();
 
-		Map<Agent, Departments> agentDeptMap = agents2.stream()
+		Map<Agent, Department> agentDeptMap = agents2.stream()
 				.collect(Collectors.toMap(Function.identity(), t -> t.getAgtDepartment()));
 
 		System.out.println(agentDeptMap);
 
 		// sort the entries based on the Agent salary --need to check
-		Function<Entry<Agent, Departments>, BigDecimal> extractSalary = entry -> entry.getKey().getAgtSalary();
-		Comparator<Entry<Agent, Departments>> compareBySalary = (a, b) -> a.getKey().getAgtSalary()
+		Function<Entry<Agent, Department>, BigDecimal> extractSalary = entry -> entry.getKey().getAgtSalary();
+		Comparator<Entry<Agent, Department>> compareBySalary = (a, b) -> a.getKey().getAgtSalary()
 				.compareTo(b.getKey().getAgtSalary());
 		// nameDeptMap.entrySet().stream().sorted(compareBySalary.reversed());
-		Map<String, Departments> nameDeptMap = agents2.stream()
+		Map<String, Department> nameDeptMap = agents2.stream()
 				.collect(Collectors.toMap((agt) -> agt.getAgtName(), t -> t.getAgtDepartment()));
 
 		System.out.println(nameDeptMap);
@@ -464,17 +507,16 @@ public class StreamApiDemo {
 	private static List<Agent> getData() {
 		List<Agent> agents = new ArrayList<>();
 		// Create 10 Agent objects
-		Agent agent1 = new Agent("ID1", "John Doe", new BigDecimal("50000"), Departments.SALES, 1.5, 'M', 25);
-		Agent agent2 = new Agent("ID2", "Alice Smith", new BigDecimal("60000"), Departments.MARKETING, 3.6, 'F', 29);
-		Agent agent3 = new Agent("ID3", "Bob Johnson", new BigDecimal("55000"), Departments.HR, 10.2, 'O', 34);
-		Agent agent4 = new Agent("ID4", "Eva Brown", new BigDecimal("58000"), Departments.ITAPP, 5.3, 'F', 30);
-		Agent agent5 = new Agent("ID5", "Michael Lee", new BigDecimal("52000"), Departments.SALES, 0.3, 'M', 24);
-		Agent agent6 = new Agent("ID6", "Sophia Adams", new BigDecimal("62000"), Departments.MARKETING, 4.2, 'F', 27);
-		Agent agent7 = new Agent("ID7", "David Clark", new BigDecimal("54000"), Departments.HR, 8.9, 'M', 28);
-		Agent agent8 = new Agent("ID8", "Olivia White", new BigDecimal("57000"), Departments.ITNETWORKING, 6.2, 'F',
-				27);
-		Agent agent9 = new Agent("ID9", "William Green", new BigDecimal("53000"), Departments.SALES, 11, 'M', 36);
-		Agent agent10 = new Agent("ID10", "Emma TurnerGreenGreen", new BigDecimal("61000"), Departments.MARKETING, 13.0,
+		Agent agent1 = new Agent("ID1", "John Doe", new BigDecimal("50000"), Department.SALES, 1.5, 'M', 25);
+		Agent agent2 = new Agent("ID2", "Alice Smith", new BigDecimal("60000"), Department.MARKETING, 3.6, 'F', 29);
+		Agent agent3 = new Agent("ID3", "Bob Johnson", new BigDecimal("55000"), Department.HR, 10.2, 'O', 34);
+		Agent agent4 = new Agent("ID4", "Eva Brown", new BigDecimal("58000"), Department.ITAPP, 5.3, 'F', 30);
+		Agent agent5 = new Agent("ID5", "Michael Lee", new BigDecimal("52000"), Department.SALES, 0.3, 'M', 24);
+		Agent agent6 = new Agent("ID6", "Sophia Adams", new BigDecimal("62000"), Department.MARKETING, 4.2, 'F', 27);
+		Agent agent7 = new Agent("ID7", "David Clark", new BigDecimal("54000"), Department.HR, 8.9, 'M', 28);
+		Agent agent8 = new Agent("ID8", "Olivia White", new BigDecimal("57000"), Department.ITNETWORKING, 6.2, 'F', 27);
+		Agent agent9 = new Agent("ID9", "William Green", new BigDecimal("53000"), Department.SALES, 11, 'M', 36);
+		Agent agent10 = new Agent("ID10", "Emma TurnerGreenGreen", new BigDecimal("61000"), Department.MARKETING, 13.0,
 				'O', 39);
 
 		agents.add(agent1);

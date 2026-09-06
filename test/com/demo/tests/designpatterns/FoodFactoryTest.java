@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import com.demo.designpatterns.factory.Food;
-import com.demo.designpatterns.factory.FoodFactory;
-import com.demo.designpatterns.factory.FoodShape;
+import com.demo.designpatterns.creational.factory.Food;
+import com.demo.designpatterns.creational.factory.FoodFactory;
+import com.demo.designpatterns.creational.factory.FoodShape;
 
 public class FoodFactoryTest {
 

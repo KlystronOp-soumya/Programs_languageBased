@@ -4,9 +4,9 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
-import com.demo.designpatterns.builder.Apartment;
-import com.demo.designpatterns.builder.ApartmentBuilder;
-import com.demo.designpatterns.builder.MultiDBDatasource;
+import com.demo.designpatterns.creational.builder.Apartment;
+import com.demo.designpatterns.creational.builder.ApartmentBuilder;
+import com.demo.designpatterns.creational.builder.MultiDBDatasource;
 
 public class BuilderTest {
 

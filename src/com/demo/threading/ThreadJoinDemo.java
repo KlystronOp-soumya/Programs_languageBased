@@ -35,4 +35,28 @@ public class ThreadJoinDemo extends Thread {
 		}
 	}
 
+	private static void joinThread() {
+		Runnable task = () -> {
+			System.out.println(Thread.currentThread().getName() + " started");
+			try {
+				Thread.sleep(2000); // simulate work
+			} catch (InterruptedException e) {
+				System.out.println(Thread.currentThread().getName() + " interrupted");
+			}
+			System.out.println(Thread.currentThread().getName() + " finished");
+		};
+
+		Thread t1 = new Thread(task, "Worker-1");
+		Thread t2 = new Thread(task, "Worker-2");
+
+		t1.start();
+		t2.start();
+
+		System.out.println("Main thread finished, but workers may still run...");
+		System.out.println("Active threads: " + Thread.activeCount());
+
+		// or change them into daemon thread as it will stop when main thread is
+		// finished
+	}
+
 }

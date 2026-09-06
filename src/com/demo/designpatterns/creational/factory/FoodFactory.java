@@ -1,4 +1,4 @@
-package com.demo.designpatterns.factory;
+package com.demo.designpatterns.creational.factory;
 
 public class FoodFactory {
 
