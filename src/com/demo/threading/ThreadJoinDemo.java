@@ -4,7 +4,7 @@ public class ThreadJoinDemo extends Thread {
 	@Override
 	public void run() {
 		System.out.println("Current Thread: " + Thread.currentThread().getName());
-		// TODO Auto-generated method stub
+
 		for (int i = 1; i <= 5; i++) {
 			try {
 				Thread.sleep(1000);
@@ -16,7 +16,7 @@ public class ThreadJoinDemo extends Thread {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
 		ThreadJoinDemo obj1 = new ThreadJoinDemo();
 		ThreadJoinDemo obj2 = new ThreadJoinDemo();
 		ThreadJoinDemo obj3 = new ThreadJoinDemo();
@@ -26,16 +26,21 @@ public class ThreadJoinDemo extends Thread {
 		obj3.start();
 
 		try {
+
 			obj1.join();
 			obj2.join();
 			obj3.join();
+
+			System.out.println("Main thread terminated!");
+
+			joinThread();
 		} catch (Exception e) {
-			// TODO: handle exception
+
 			e.printStackTrace();
 		}
 	}
 
-	private static void joinThread() {
+	private static void joinThread() throws InterruptedException {
 		Runnable task = () -> {
 			System.out.println(Thread.currentThread().getName() + " started");
 			try {
@@ -52,9 +57,12 @@ public class ThreadJoinDemo extends Thread {
 		t1.start();
 		t2.start();
 
+		/*
+		 * t1.join(); t2.join();
+		 */
+
 		System.out.println("Main thread finished, but workers may still run...");
 		System.out.println("Active threads: " + Thread.activeCount());
-
 		// or change them into daemon thread as it will stop when main thread is
 		// finished
 	}

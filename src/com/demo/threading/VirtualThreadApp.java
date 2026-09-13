@@ -26,6 +26,7 @@ public class VirtualThreadApp {
 		thread.join();
 	}
 
+	@SuppressWarnings("unused")
 	private static void runWorkers() throws InterruptedException {
 		
 		Thread.Builder threadBuilder1 = Thread.ofVirtual().name("Worker-0");
